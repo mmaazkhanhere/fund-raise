@@ -15,7 +15,7 @@ const Navbar = async (props: Props) => {
     return (
         <header
             className='flex items-center justify-between max-w-7xl mx-auto w-full
-            py-4'
+            py-4 px-4'
         >
             <nav
                 className='uppercase font-black text-2xl lg:text-3xl text-[#345846]'
