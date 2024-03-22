@@ -71,6 +71,6 @@
     @apply border-border;
   }
   body {
-    @apply bg-[#f5fff0] text-[#795548];
+    @apply bg-[#f8f8f2] text-[#0f2417];
   }
 }
