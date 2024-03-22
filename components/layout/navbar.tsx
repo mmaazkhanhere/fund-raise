@@ -2,12 +2,15 @@ import Link from 'next/link'
 import React from 'react'
 import NavbarMenu from './navbar-menu'
 import { Button } from '../ui/button'
-import { UserButton } from '@clerk/nextjs'
-import NavigationMenuDemo from './nav-items'
+import { SignInButton, UserButton } from '@clerk/nextjs'
+import { currentUser } from '@clerk/nextjs/server'
 
 type Props = {}
 
-const Navbar = (props: Props) => {
+const Navbar = async (props: Props) => {
+
+    const signedInUser = await currentUser()
+
     return (
         <header
             className='flex items-center justify-between max-w-7xl mx-auto w-full
@@ -26,10 +29,29 @@ const Navbar = (props: Props) => {
             </nav>
 
             <nav className='flex items-center gap-x-4'>
-                <Button className='bg-[#81f08f] text-[#0f2417]'>
+                <Button
+                    variant='accent'
+                >
                     Start Campaign
                 </Button>
-                <UserButton />
+
+                {
+                    signedInUser ? (
+                        <UserButton
+                            showName={true}
+                            afterSignOutUrl='/'
+                        />
+                    ) : (
+                        <SignInButton>
+                            <Button
+                                variant='outline'
+                            >
+                                Sign In
+                            </Button>
+                        </SignInButton>
+                    )
+                }
+
             </nav>
 
         </header>

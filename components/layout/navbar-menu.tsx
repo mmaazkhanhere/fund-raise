@@ -83,7 +83,21 @@ export default function NavbarMenu() {
             How It Works
           </NavigationMenuTrigger>
           <NavigationMenuContent>
-            Like this
+            <ul className="grid gap-3 p-4 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
+              <ListItem href="/" title="Withdrawal of Funds">
+                Details on how and when campaign organizers can withdraw funds.
+              </ListItem>
+              <ListItem href="/" title="Share a Campaign">
+                Tips on how to share a campaign on social media to increase visibility
+              </ListItem>
+              <ListItem href="/" title="Post-Donation Process">
+                Explanation of what happens after a donation is made
+              </ListItem>
+              <ListItem href="/" title="FAQs">
+                Answers to common questions about the crowdfunding process.
+              </ListItem>
+            </ul>
+
           </NavigationMenuContent>
         </NavigationMenuItem>
 
