@@ -12,7 +12,7 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
-} from "@/components/ui/navigation-menu"
+} from "@/components/layout/navigation-menu"
 
 
 export default function NavbarMenu() {
@@ -20,7 +20,7 @@ export default function NavbarMenu() {
     <NavigationMenu>
       <NavigationMenuList>
         <NavigationMenuItem>
-          <NavigationMenuTrigger>Getting started</NavigationMenuTrigger>
+          <NavigationMenuTrigger>Campaigns</NavigationMenuTrigger>
           <NavigationMenuContent>
             <ul className="grid gap-3 p-4 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
               <li className="row-span-4">
@@ -68,10 +68,10 @@ export default function NavbarMenu() {
                 Planting trees to restore forests and capture carbon
               </ListItem>
               <ListItem href="/" title="Plastic Reduction">
-                Programs to educate about environmental issues
+                Initiatives to reduce plastic waste
               </ListItem>
-              <ListItem href="/" title="Education and Awareness">
-                Initiatives to reduce plastic waste and pollution
+              <ListItem href="/" title="Community Projects">
+                Local initiatives for environmental issues
               </ListItem>
             </ul>
 
@@ -85,13 +85,13 @@ export default function NavbarMenu() {
           <NavigationMenuContent>
             <ul className="grid gap-3 p-4 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
               <ListItem href="/" title="Withdrawal of Funds">
-                Details on how and when campaign organizers can withdraw funds.
+                How to withdraw funds?
               </ListItem>
               <ListItem href="/" title="Share a Campaign">
-                Tips on how to share a campaign on social media to increase visibility
+                Increase your visibility by sharing on social media
               </ListItem>
               <ListItem href="/" title="Post-Donation Process">
-                Explanation of what happens after a donation is made
+                What happens after a donation is made?
               </ListItem>
               <ListItem href="/" title="FAQs">
                 Answers to common questions about the crowdfunding process.
