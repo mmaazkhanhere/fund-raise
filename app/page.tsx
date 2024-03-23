@@ -1,13 +1,13 @@
-import Hero from "@/components/hero";
-import Navbar from "@/components/layout/navbar";
-import QuoteSection from "@/components/quote-section";
+import FeatureCampaigns from "@/components/homepage/feature-campaigns";
+import Hero from "@/components/homepage/hero";
+import QuoteSection from "@/components/homepage/quote-section";
 
 export default function Home() {
   return (
     <main>
-      <Navbar />
       <Hero />
       <QuoteSection />
+      <FeatureCampaigns />
     </main>
   );
 }

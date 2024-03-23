@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Open_Sans } from "next/font/google";
 import "./globals.css";
 import { ClerkProvider } from '@clerk/nextjs'
+import Navbar from "@/components/layout/navbar";
 
 const openSans = Open_Sans({ subsets: ["latin"], weight: ['500'] });
 
@@ -18,7 +19,10 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang="en">
-        <body className={openSans.className}>{children}</body>
+        <body className={openSans.className}>
+          <Navbar />
+          {children}
+        </body>
       </html>
     </ClerkProvider>
   );
