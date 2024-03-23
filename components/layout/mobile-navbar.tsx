@@ -26,6 +26,7 @@ const MobileNavbar = (props: Props) => {
             <SheetTrigger aria-label='Menu Button'>
                 <RiMenu4Line className='w-7 h-7' />
             </SheetTrigger>
+
             <SheetContent className='w-screen overflow-scroll'>
                 <SheetHeader>
                     <SheetTitle>Menu</SheetTitle>
