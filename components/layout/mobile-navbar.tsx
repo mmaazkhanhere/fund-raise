@@ -11,13 +11,11 @@ import { GiSwapBag, GiWindTurbine } from "react-icons/gi";
 import {
     Sheet,
     SheetContent,
-    SheetDescription,
     SheetHeader,
     SheetTitle,
     SheetTrigger,
 } from "@/components/ui/sheet"
 import Link from 'next/link';
-import { CiBag1 } from 'react-icons/ci';
 
 
 type Props = {}

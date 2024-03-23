@@ -1,4 +1,4 @@
-import FeatureCampaigns from "@/components/homepage/feature-campaigns";
+import CampaignCategories from "@/components/homepage/campaign-categories";
 import Hero from "@/components/homepage/hero";
 import QuoteSection from "@/components/homepage/quote-section";
 
@@ -7,7 +7,7 @@ export default function Home() {
     <main>
       <Hero />
       <QuoteSection />
-      <FeatureCampaigns />
+      <CampaignCategories />
     </main>
   );
 }
