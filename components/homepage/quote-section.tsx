@@ -9,7 +9,7 @@ const QuoteSection = (props: Props) => {
     return (
         <div
             className='w-full max-w-7xl mx-auto flex items-center justify-center
-            py-32 px-4'
+            my-32 px-4'
         >
             <h2
                 className={`${bebas.className} text-5xl lg:text-6xl text-red-500 text-center

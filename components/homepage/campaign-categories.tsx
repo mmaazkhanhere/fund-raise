@@ -11,7 +11,7 @@ const CampaignCategories = (props: Props) => {
     return (
         <section
             className='max-w-7xl mx-auto w-full grid grid-cols-2 lg:grid-cols-4 
-            gap-5 mb-20 px-4'
+            gap-5 my-28 px-4'
         >
             {/*Climate Change Initiatives */}
             <Link

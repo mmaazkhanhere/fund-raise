@@ -30,12 +30,16 @@ const CampaignCard = (props: Props) => {
             </div>
 
             <div className='flex flex-col p-4 w-full'>
-                <span className='uppercase text-lg font-bold text-[#3a58]'>
+                <span className='uppercase text-sm font-bold text-[#3a58]'>
                     Initiative
                 </span>
                 <h3 className='text-2xl mt-2'>
                     Help Polar Bears Thrive
                 </h3>
+                <p className='text-sm text-[#0f2417]/80 mt-2'>
+                    Help us save polar bears that are most affected by melting glaciers
+                </p>
+
 
                 <div className='flex flex-col items-start w-full mt-5'>
 
