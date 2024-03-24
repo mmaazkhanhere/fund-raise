@@ -4,6 +4,7 @@ import "./globals.css";
 import { ClerkProvider } from '@clerk/nextjs'
 import Navbar from "@/components/layout/navbar";
 import Footer from "@/components/layout/footer";
+import ReduxProvider from "@/lib/(redux-store)/(redux-setup)/redux-provider";
 
 const openSans = Open_Sans({ subsets: ["latin"], weight: ['500'] });
 
@@ -21,9 +22,11 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang="en">
         <body className={openSans.className}>
-          <Navbar />
-          {children}
-          <Footer />
+          <ReduxProvider>
+            <Navbar />
+            {children}
+            <Footer />
+          </ReduxProvider>
         </body>
       </html>
     </ClerkProvider>
