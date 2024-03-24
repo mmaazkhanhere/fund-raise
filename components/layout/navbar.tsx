@@ -31,11 +31,16 @@ const Navbar = async (props: Props) => {
 
             <nav className='flex items-center gap-x-4'>
                 <div className='hidden lg:block'>
-                    <Button
-                        variant='accent'
+                    <Link
+                        href='/create-campaign'
                     >
-                        Start Campaign
-                    </Button>
+                        <Button
+                            variant='accent'
+                        >
+                            Start Campaign
+                        </Button>
+                    </Link>
+
                 </div>
 
 
