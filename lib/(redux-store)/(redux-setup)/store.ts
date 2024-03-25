@@ -1,11 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit'
 import userSlice from '../(slices)/userSlice'
 import campaignListSlice from '../(slices)/campaignListSlice'
+import campaignSlice from '../(slices)/campaignSlice'
 
 export const store = configureStore({
     reducer: {
         users: userSlice,
-        campaignList: campaignListSlice
+        campaignList: campaignListSlice,
+        campaign: campaignSlice
     },
 })
 

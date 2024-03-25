@@ -19,7 +19,7 @@ export const createCampaign = createAsyncThunk("camapignListSlice/createCampaign
     }
 })
 
-const campaignSlice = createSlice({
+const campaignListSlice = createSlice({
     name: 'campaignList',
     initialState,
     reducers: {},
@@ -41,6 +41,6 @@ const campaignSlice = createSlice({
     }
 })
 
-export const { } = campaignSlice.actions;
+export const { } = campaignListSlice.actions;
 export const selectIsLoading = (state: RootState) => state.campaignList.isLoading;
-export default campaignSlice.reducer;
+export default campaignListSlice.reducer;

@@ -1,17 +1,13 @@
-"use client"
+
 
 import React from 'react'
 import { Bebas_Neue } from 'next/font/google'
-import { useAppSelector } from '@/lib/(redux-store)/(redux-setup)/hooks';
 
 const bebas = Bebas_Neue({ subsets: ["latin"], weight: ['400'] });
 
 type Props = {}
 
 const QuoteSection = (props: Props) => {
-
-    const currentUser = useAppSelector((state) => state.users.userData);
-    console.log(currentUser);
 
     return (
         <div
