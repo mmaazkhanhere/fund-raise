@@ -4,7 +4,6 @@ import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import * as z from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
-import axios from 'axios'
 
 import {
     Form,
@@ -30,57 +29,67 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from '../ui/textarea'
 import ImageUpload from '../image-upload'
 import { Button } from '../ui/button'
+import { useAppDispatch } from '@/lib/(redux-store)/(redux-setup)/hooks'
+import { createCampaign } from '@/lib/(redux-store)/(slices)/campaignListSlice'
 
 type Props = {}
 
 const CampaignCreationHomepage = (props: Props) => {
 
+    const dispatch = useAppDispatch();
+
     const formSchema = z.object({
-        campaignTitle: z.string().max(33, {
+        title: z.string().max(33, {
             message: 'Campaign title must be have at most 33 characters'
         }),
-        campaignTagline: z.string().max(100, {
+        tagline: z.string().max(100, {
             message: 'Campaign tagline must be have at most 100 characters'
         }),
-        campaignDescription: z.string().max(750, {
+        description: z.string().max(750, {
             message: 'Campaign description must have at most 750 characters'
         }),
-        campaignImage: z.string().min(1, {
+        imageUrl: z.string().min(1, {
             message: 'Upload image for campaign'
         }),
-        campaignCategory: z.string().min(1, 'Campaign category must be specified'),
-        campaignNiche: z.string().min(1, 'Campaign niche must be specified'),
-        campaignDuration: z.coerce.number().min(7, 'Duration must be a positive number and greater than 7'),
+        category: z.string().min(1, 'Campaign category must be specified'),
+        niche: z.string().min(1, 'Campaign niche must be specified'),
+        durationInDays: z.coerce.number().min(7, 'Duration must be a positive number and greater than 7'),
 
-        campaignReceiver: z.string().min(1, 'Please select an option'),
-        fundingGoal: z.coerce.number().min(7, 'Funding target must be positive'),
+        fundsReceiver: z.string().min(1, 'Please select an option'),
+        fundGoal: z.coerce.number().min(7, 'Funding target must be positive'),
 
     })
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema), defaultValues: {
-            campaignTitle: '',
-            campaignTagline: '',
-            campaignDescription: '',
-            campaignImage: '',
-            campaignCategory: '',
-            campaignNiche: '',
-            campaignDuration: 1,
-            campaignReceiver: '',
-            fundingGoal: 1
+            title: '',
+            tagline: '',
+            description: '',
+            imageUrl: '',
+            category: '',
+            niche: '',
+            durationInDays: 1,
+            fundsReceiver: '',
+            fundGoal: 1
         }
     })
 
     const isLoading = form.formState.isSubmitting;
 
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
-        console.log(values.campaignCategory);
+        try {
+            await dispatch(
+                createCampaign(values)
+            );
+        } catch (error) {
+            console.error('CREATE_CAMPAIGN_ON_SUBMIT_FUNCTION_ERROR', error);
+        }
     }
 
 
 
     const handleImageChange = (base64: string) => {
-        form.setValue('campaignImage', base64);
+        form.setValue('imageUrl', base64);
     }
 
     return (
@@ -104,7 +113,7 @@ const CampaignCreationHomepage = (props: Props) => {
 
                     {/*Campaign Title */}
                     <FormField
-                        name="campaignTitle"
+                        name="title"
                         render={({ field }) => (
                             <FormItem
                                 className='max-w-xl'
@@ -133,7 +142,7 @@ const CampaignCreationHomepage = (props: Props) => {
 
                     {/*Campaign Tagline */}
                     <FormField
-                        name="campaignTagline"
+                        name="tagline"
                         render={({ field }) => (
                             <FormItem
                                 className='max-w-xl'
@@ -163,7 +172,7 @@ const CampaignCreationHomepage = (props: Props) => {
 
                     {/*Campaign Image */}
                     <FormField
-                        name="campaignImage"
+                        name="imageUrl"
                         render={({ field }) => (
                             <FormItem
                                 className='max-w-xl'
@@ -176,7 +185,7 @@ const CampaignCreationHomepage = (props: Props) => {
                                 </FormDescription>
                                 <FormControl>
                                     <ImageUpload
-                                        value={form.watch('campaignImage')}
+                                        value={form.watch('imageUrl')}
                                         label='Upload campaign image'
                                         disabled={isLoading}
                                         onChange={handleImageChange}
@@ -191,7 +200,7 @@ const CampaignCreationHomepage = (props: Props) => {
 
                     {/*Campaign Category */}
                     <FormField
-                        name="campaignCategory"
+                        name="category"
                         render={({ field }) => (
                             <FormItem
                                 className='max-w-xl'
@@ -222,7 +231,7 @@ const CampaignCreationHomepage = (props: Props) => {
 
                     {/*Campaign Niche */}
                     <FormField
-                        name="campaignNiche"
+                        name="niche"
                         render={({ field }) => (
                             <FormItem
                                 className='max-w-xl'
@@ -256,7 +265,7 @@ const CampaignCreationHomepage = (props: Props) => {
 
                     {/*Campaign Description */}
                     <FormField
-                        name="campaignDescription"
+                        name="description"
                         render={({ field }) => (
                             <FormItem
                                 className='max-w-xl'
@@ -288,7 +297,7 @@ const CampaignCreationHomepage = (props: Props) => {
 
                     {/*Campaign Duration */}
                     <FormField
-                        name="campaignDuration"
+                        name="durationInDays"
                         render={({ field }) => (
                             <FormItem
                                 className='max-w-xl'
@@ -321,7 +330,7 @@ const CampaignCreationHomepage = (props: Props) => {
 
                     {/*Campaign Receiver */}
                     <FormField
-                        name="campaignReceiver"
+                        name="fundsReceiver"
                         render={({ field }) => (
                             <FormItem
                                 className='max-w-xl'
@@ -367,7 +376,7 @@ const CampaignCreationHomepage = (props: Props) => {
 
                     {/*Campaign Duration */}
                     <FormField
-                        name="fundingGoal"
+                        name="fundGoal"
                         render={({ field }) => (
                             <FormItem
                                 className='max-w-xl'
@@ -398,6 +407,7 @@ const CampaignCreationHomepage = (props: Props) => {
 
 
                     <Button
+                        disabled={isLoading}
                         variant='accent'
                         size='lg'
                     >

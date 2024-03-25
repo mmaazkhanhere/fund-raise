@@ -47,7 +47,6 @@ const Navbar = async (props: Props) => {
                 {
                     signedInUser ? (
                         <UserButton
-                            showName={true}
                             afterSignOutUrl='/'
                         />
                     ) : (

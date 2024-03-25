@@ -4,6 +4,18 @@ export interface IUserState {
     error: any
 }
 
+export interface ICampaignListState {
+    campaignList: ICampaign[];
+    isLoading: boolean,
+    error: any
+}
+
+export interface ICampaignState {
+    campaign: ICampaign,
+    isLoading: boolean,
+    error: any
+}
+
 export interface IUser {
     id?: string;
     firstName?: string;
@@ -15,6 +27,19 @@ export interface IUser {
     campaigns?: ICampaign[];
 }
 
-export interface ICampaign {
 
+export interface ICampaign {
+    id?: number;
+    title?: string;
+    tagline?: string;
+    imageUrl?: string;
+    category?: string;
+    niche?: string;
+    description?: string;
+    durationInDays?: number;
+    fundsReceiver?: string;
+    fundGoal?: number;
+    creatorId?: string;
+    createdAt?: Date
+    creator?: IUser
 }
