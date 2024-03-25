@@ -34,6 +34,7 @@ model Campaign{
   durationInDays Int
   fundsReceiver String
   fundGoal Float
+  fundReceived Float @default(0)
   creatorId String
   createdAt DateTime @default(now())
   creator User @relation(fields:[creatorId], references: [id], onDelete: Cascade)

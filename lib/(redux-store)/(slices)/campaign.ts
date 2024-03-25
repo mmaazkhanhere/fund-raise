@@ -9,9 +9,9 @@ const initialState: ICampaignState = {
     error: null,
 }
 
-export const getCampaign = createAsyncThunk('campaignSlice/getCampaign', async (camapignId?: string) => {
+export const getCampaign = createAsyncThunk('campaignSlice/getCampaign', async (campaignId?: string) => {
     try {
-        const request = await axios.get(`/api/campaign/${camapignId}`);
+        const request = await axios.get(`/api/campaign/${campaignId}`);
         const data = await request.data();
         return data
     } catch (error) {

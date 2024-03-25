@@ -2,6 +2,28 @@ import { NextRequest, NextResponse } from "next/server";
 import prismadb from '@/lib/prismadb'
 import { auth } from "@clerk/nextjs";
 
+export const GET = async () => {
+
+    console.log('GET request')
+
+    try {
+        const campaignList = await prismadb.campaign.findMany({
+            include: {
+                creator: true
+            }
+        })
+
+        console.log(campaignList);
+
+        return NextResponse.json(campaignList);
+
+    } catch (error) {
+        console.error('GET_CAMPAIGN_LIST_API_ERROR', error);
+        return new NextResponse('Internal Server Error', { status: 500 });
+    }
+}
+
+
 export const POST = async (request: NextRequest) => {
     const body = await request.json();
 
@@ -30,7 +52,7 @@ export const POST = async (request: NextRequest) => {
         return NextResponse.json(camapign);
 
     } catch (error) {
-        console.error('NEW_CAMPAIGN_POST_ERROR', error);
+        console.error('NEW_CAMPAIGN_POST_API_ERROR', error);
         return new NextResponse('Internal Server Error', { status: 500 });
     }
 }

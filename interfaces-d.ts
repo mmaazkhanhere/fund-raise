@@ -39,6 +39,7 @@ export interface ICampaign {
     durationInDays?: number;
     fundsReceiver?: string;
     fundGoal?: number;
+    fundReceived?: number;
     creatorId?: string;
     createdAt?: Date
     creator?: IUser

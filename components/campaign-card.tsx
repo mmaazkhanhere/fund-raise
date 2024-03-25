@@ -5,23 +5,26 @@ import React, { useState } from 'react'
 
 import { Progress } from "@/components/ui/progress"
 import Link from 'next/link'
+import { ICampaign } from '@/interfaces-d'
 
 
-type Props = {}
+type Props = {
+    campaign: ICampaign
+}
 
-const CampaignCard = (props: Props) => {
+const CampaignCard = ({ campaign }: Props) => {
 
-    const [progress, setProgress] = useState<number>(750)
+    const [progress, setProgress] = useState<number>(campaign.fundReceived!)
 
     return (
         <Link
-            href='/campaign'
+            href={`/${campaign.category}/${campaign.id}`}
             className=' max-w-md w-full flex flex-col items-start border'
         >
             <div className='w-ful overflow-hidden'>
                 <Image
-                    src='/hero.jpg'
-                    alt='Dummy'
+                    src={campaign.imageUrl!}
+                    alt={campaign.title!}
                     width={550}
                     height={550}
                     className='hover:scale-105 hover:translate-y-2 transition
@@ -31,13 +34,13 @@ const CampaignCard = (props: Props) => {
 
             <div className='flex flex-col p-4 w-full'>
                 <span className='uppercase text-sm font-bold text-[#3a58]'>
-                    Initiative
+                    {campaign.category}
                 </span>
                 <h3 className='text-2xl mt-2'>
-                    Help Polar Bears Thrive
+                    {campaign.title}
                 </h3>
                 <p className='text-sm text-[#0f2417]/80 mt-2'>
-                    Help us save polar bears that are most affected by melting glaciers
+                    {campaign.tagline}
                 </p>
 
 
@@ -51,11 +54,11 @@ const CampaignCard = (props: Props) => {
                         </div>
 
                         <span className='text-sm text-[#0f2417]/60'>
-                            {(progress / 500) * 100}%
+                            {(progress / campaign.fundGoal!) * 100}%
                         </span>
                     </div>
                     <Progress
-                        value={(progress / 500) * 100}
+                        value={(progress / campaign.fundGoal!) * 100}
                         className='w-full'
                     />
                 </div>

@@ -31,12 +31,14 @@ import ImageUpload from '../image-upload'
 import { Button } from '../ui/button'
 import { useAppDispatch } from '@/lib/(redux-store)/(redux-setup)/hooks'
 import { createCampaign } from '@/lib/(redux-store)/(slices)/campaignListSlice'
+import { useRouter } from 'next/navigation'
 
 type Props = {}
 
 const CampaignCreationHomepage = (props: Props) => {
 
     const dispatch = useAppDispatch();
+    const router = useRouter();
 
     const formSchema = z.object({
         title: z.string().max(33, {
@@ -81,6 +83,7 @@ const CampaignCreationHomepage = (props: Props) => {
             await dispatch(
                 createCampaign(values)
             );
+            router.push('/');
         } catch (error) {
             console.error('CREATE_CAMPAIGN_ON_SUBMIT_FUNCTION_ERROR', error);
         }

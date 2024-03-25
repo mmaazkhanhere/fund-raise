@@ -1,7 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit'
 import userSlice from '../(slices)/userSlice'
 import campaignListSlice from '../(slices)/campaignListSlice'
-import campaignSlice from '../(slices)/campaignSlice'
+import campaignSlice from '../(slices)/campaign'
 
 export const store = configureStore({
     reducer: {

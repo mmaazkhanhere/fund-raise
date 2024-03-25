@@ -9,7 +9,17 @@ const initialState: ICampaignListState = {
     error: null,
 }
 
-export const createCampaign = createAsyncThunk("camapignListSlice/createCampaign", async (data: ICampaign) => {
+export const getCampaignList = createAsyncThunk("campaignListSlice/getCampaignList", async () => {
+    try {
+        const response = await axios.get('/api/campaign');
+        console.log(response.data);
+        return response.data;
+    } catch (error) {
+        console.error('GET_CAMPAIGN_LIST_FUNCTION_ERROR', error);
+    }
+})
+
+export const createCampaign = createAsyncThunk("campaignListSlice/createCampaign", async (data: ICampaign) => {
     try {
         const response = await axios.post("/api/campaign", data);
         return response.data;
@@ -24,6 +34,18 @@ const campaignListSlice = createSlice({
     initialState,
     reducers: {},
     extraReducers: (builder) => {
+
+        builder.addCase(getCampaignList.pending, (state) => {
+            state.isLoading = true;
+            state.error = null;
+        });
+
+        builder.addCase(getCampaignList.fulfilled, (state, action) => {
+            state.isLoading = false;
+            state.campaignList = action.payload;
+            state.error = null;
+        });
+
         builder.addCase(createCampaign.pending, (state) => {
             state.isLoading = true;
             state.error = null;

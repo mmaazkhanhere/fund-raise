@@ -1,7 +1,7 @@
 "use client"
 
 import { useAppSelector } from '@/lib/(redux-store)/(redux-setup)/hooks';
-import { getCampaign } from '@/lib/(redux-store)/(slices)/campaignSlice';
+import { getCampaign } from '@/lib/(redux-store)/(slices)/campaign';
 import React from 'react'
 
 type Props = {}
