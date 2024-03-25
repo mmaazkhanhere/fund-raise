@@ -14,10 +14,9 @@ datasource db {
 }
 
 model User{
-  id  Int  @id @unique
+  id  String  @id @unique
   firstName String
   lastName String
-  fullName     String    @map("CONCAT(firstName, ' ', lastName)")
   username String @unique
   email String @unique
   profileImage String
@@ -35,7 +34,7 @@ model Campaign{
   durationInDays Int
   fundsReceiver String
   fundGoal Float
-  creatorId Int
+  creatorId String
   createdAt DateTime @default(now())
   creator User @relation(fields:[creatorId], references: [id], onDelete: Cascade)
 }
