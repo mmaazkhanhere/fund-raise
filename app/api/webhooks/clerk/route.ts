@@ -1,49 +1,50 @@
-import { Webhook } from 'svix';
-import { headers } from 'next/headers'
-import { WebhookEvent } from '@clerk/nextjs/server'
-import prismadb from '@/lib/prismadb'
+import { clerkClient } from "@clerk/nextjs/server";
+import { IncomingHttpHeaders } from "http";
+import { headers } from "next/headers";
+import { NextResponse } from "next/server";
+import { Webhook, WebhookRequiredHeaders } from "svix";
+import prismadb from '@/lib/prismadb';
 
-export async function POST(req: Request) {
+type EventType = "user.created" | "user.updated" | "user.deleted" | "*";
+
+type Event = {
+    data: Record<string, string | number>;
+    object: "event";
+    type: EventType;
+};
+
+export async function POST(request: Request) {
     const WEBHOOK_SECRET = process.env.WEBHOOK_SECRET;
 
     if (!WEBHOOK_SECRET) {
         throw new Error('Please add WEBHOOK_SECRET from Clerk Dashboard to .env or .env.local');
     }
 
-    const headerPayload = headers();
-    const svix_id = headerPayload.get("svix-id");
-    const svix_timestamp = headerPayload.get("svix-timestamp");
-    const svix_signature = headerPayload.get("svix-signature");
+    const payload = await request.json();
 
-    if (!svix_id || !svix_timestamp || !svix_signature) {
-        return new Response('Error occured -- no svix headers', {
-            status: 400
-        })
-    }
+    const headersList = headers();
+    const heads = {
+        "svix-id": headersList.get("svix-id"),
+        "svix-timestamp": headersList.get("svix-timestamp"),
+        "svix-signature": headersList.get("svix-signature"),
+    };
 
-    const payload = await req.json()
-    const body = JSON.stringify(payload);
 
-    // Create a new Svix instance with your secret.
     const wh = new Webhook(WEBHOOK_SECRET);
-
-    let evt: WebhookEvent
+    let evt: Event | null = null;
 
     try {
-        evt = wh.verify(body, {
-            "svix-id": svix_id,
-            "svix-timestamp": svix_timestamp,
-            "svix-signature": svix_signature,
-        }) as WebhookEvent
+        evt = wh.verify(
+            JSON.stringify(payload),
+            heads as IncomingHttpHeaders & WebhookRequiredHeaders
+        ) as Event;
     } catch (err) {
-        console.error('Error verifying webhook:', err);
-        return new Response('Error occured', {
-            status: 400
-        })
+        console.error((err as Error).message);
+        return NextResponse.json({}, { status: 400 });
     }
 
-    const { id } = evt.data;
-    const eventType = evt.type;
+
+    const eventType: EventType = evt.type;
 
     try {
         if (eventType === 'user.created') {
@@ -53,18 +54,20 @@ export async function POST(req: Request) {
             // Handle user update event
             await handleUserUpdate(evt.data);
         }
+        else if (eventType === 'user.deleted') {
+            //handle user deleted event
+            await handleDeleteUser(evt.data);
+        }
     } catch (error) {
         console.error('Error handling webhook event:', error);
         return new Response('Error handling webhook event', { status: 500 });
     }
 
-    console.log(`Webhook with an ID of ${id} and type of ${eventType}`);
-    console.log('Webhook body:', body);
-
     return new Response('', { status: 200 });
 }
 
 async function handleUserSignup(userData: any) {
+
     try {
         await prismadb.user.create({
             data: {
@@ -75,6 +78,7 @@ async function handleUserSignup(userData: any) {
                 email: userData.email_addresses[0].email_address,
                 profileImage: userData.image_url
             },
+
         });
     } catch (error) {
         console.error('Error inserting user data:', error);
@@ -83,7 +87,6 @@ async function handleUserSignup(userData: any) {
 }
 
 async function handleUserUpdate(userData: any) {
-
     try {
         await prismadb.user.update({
             where: {
@@ -103,3 +106,15 @@ async function handleUserUpdate(userData: any) {
     }
 }
 
+async function handleDeleteUser(userData: any) {
+    try {
+        await prismadb.user.deleteMany({
+            where: {
+                id: userData.id
+            }
+        });
+    } catch (error) {
+        console.error('Error deleting user data:', error);
+        throw error;
+    }
+}
