@@ -18,7 +18,7 @@ const CampaignCard = ({ campaign }: Props) => {
 
     return (
         <Link
-            href={`/${campaign.category}/${campaign.id}`}
+            href={`/${(campaign.category)?.toLowerCase()}/${campaign.id}`}
             className=' max-w-md w-full flex flex-col items-start border'
         >
             <div className='w-ful overflow-hidden'>

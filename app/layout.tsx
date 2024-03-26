@@ -6,7 +6,7 @@ import Navbar from "@/components/layout/navbar";
 import Footer from "@/components/layout/footer";
 import ReduxProvider from "@/lib/(redux-store)/(redux-setup)/redux-provider";
 
-const openSans = Open_Sans({ subsets: ["latin"], weight: ['500'] });
+const openSans = Open_Sans({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Create Next App",

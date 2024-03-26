@@ -12,8 +12,7 @@ const initialState: ICampaignState = {
 export const getCampaign = createAsyncThunk('campaignSlice/getCampaign', async (campaignId?: string) => {
     try {
         const request = await axios.get(`/api/campaign/${campaignId}`);
-        const data = await request.data();
-        return data
+        return request.data;
     } catch (error) {
 
     }
@@ -31,7 +30,7 @@ const campaignSlice = createSlice({
 
         builder.addCase(getCampaign.fulfilled, (state, action) => {
             state.isLoading = false;
-            state.campaign = action.payload.items
+            state.campaign = action.payload;
             state.error = null;
         });
 
