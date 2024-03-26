@@ -49,7 +49,7 @@ const PaymentModal = (props: Props) => {
         resolver: zodResolver(formSchema), defaultValues: {
             fullName: '',
             emailAddress: '',
-            donation: donation
+            donation: 0
         }
     })
 
@@ -59,16 +59,17 @@ const PaymentModal = (props: Props) => {
         console.log(values)
     }
 
+    const handleDonationChange = (donation: number) => {
+        setDonation(donation)
+        form.setValue('donation', donation);
+    }
+
     return (
         <Dialog>
-            <DialogTrigger>
-                <Button
-                    variant='accent'
-                    size='lg'
-                    className='w-full'
-                >
-                    Back This Project
-                </Button>
+            <DialogTrigger
+                className='bg-[#81f08f] w-full py-3 rounded-xl text-sm'
+            >
+                Back This Project
             </DialogTrigger>
             <DialogContent>
                 <DialogHeader>
@@ -136,88 +137,41 @@ const PaymentModal = (props: Props) => {
                         <FormField
                             name="donations"
                             render={({ field }) => (
-                                <FormItem
-                                    className='max-w-xl'
-                                >
-                                    <FormLabel className='font-medium md:text-lg'>
+                                <FormItem className="max-w-xl">
+                                    <FormLabel className="font-medium md:text-lg">
                                         Select or input custom donation
                                     </FormLabel>
                                     <FormControl>
-                                        <div className='grid lg:grid-cols-3 w-full gap-5'>
-                                            <Button
-                                                value={25}
-                                                onClick={() => setDonation(25)}
-                                                variant='outline'
-                                                type='button'
-                                                className={donation === 25 ? 'bg-[#81f08f]' : ''}
-                                            >
-                                                $25
-                                            </Button>
-
-                                            <Button
-                                                value={50}
-                                                onClick={() => setDonation(50)}
-                                                variant='outline'
-                                                type='button'
-                                                className={donation === 50 ? 'bg-[#81f08f]' : ''}
-                                            >
-                                                $50
-                                            </Button>
-
-                                            <Button
-                                                value={100}
-                                                onClick={() => setDonation(100)}
-                                                variant='outline'
-                                                type='button'
-                                                className={donation === 100 ? 'bg-[#81f08f]' : ''}
-                                            >
-                                                $100
-                                            </Button>
-
-                                            <Button
-                                                value={250}
-                                                onClick={() => setDonation(250)}
-                                                variant='outline'
-                                                type='button'
-                                                className={donation === 250 ? 'bg-[#81f08f]' : ''}
-                                            >
-                                                $250
-                                            </Button>
-
-                                            <Button
-                                                value={500}
-                                                onClick={() => setDonation(500)}
-                                                variant='outline'
-                                                type='button'
-                                                className={donation === 500 ? 'bg-[#81f08f]' : ''}
-                                            >
-                                                $500
-                                            </Button>
-
-                                            <Button
-                                                value={1000}
-                                                onClick={() => setDonation(1000)}
-                                                variant='outline'
-                                                type='button'
-                                                className={donation === 1000 ? 'bg-[#81f08f]' : ''}
-                                            >
-                                                $1000
-                                            </Button>
-
+                                        <div className="grid lg:grid-cols-3 w-full gap-5">
+                                            {
+                                                [25, 50, 100, 250, 500, 1000].map((value) => (
+                                                    <Button
+                                                        key={value}
+                                                        onClick={() => {
+                                                            handleDonationChange(value);
+                                                        }}
+                                                        variant="outline"
+                                                        type="button"
+                                                        className={donation === value ? 'bg-[#81f08f]' : ''}
+                                                        {...field}
+                                                    >
+                                                        ${value}
+                                                    </Button>
+                                                ))
+                                            }
                                             <Input
-                                                placeholder='Add custom donation'
                                                 disabled={isLoading}
-                                                type='number'
+                                                placeholder='Add custom payment'
                                                 min={1}
-                                                onChange={event => setDonation(Number(event.target.value))}
-                                                className='w-full lg:col-span-3'
+                                                type='number'
+                                                required
+                                                value={donation}
+                                                onChange={event => handleDonationChange(Number(event.target.value))}
+                                                className='lg:col-span-3 w-full'
                                             />
                                         </div>
-
                                     </FormControl>
-                                    <FormMessage className='text-sm' />
                                 </FormItem>
-
                             )}
                         />
 

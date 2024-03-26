@@ -28,12 +28,17 @@ const InitiativeHomepage = (props: Props) => {
     }, [campaignId, dispatch]);
 
 
-    const [progress, setProgress] = useState<number>(+campaign.fundReceived!);
+    const [progress, setProgress] = useState<number>(0);
+
+    useEffect(() => {
+        setProgress(campaign?.fundReceived as number);
+    }, [campaign?.fundReceived])
 
     if (loadingState || !campaign) {
         return (
             <section
-                className='max-w-7xl mx-auto w-full flex flex-col items-start px-4'
+                className='max-w-7xl mx-auto w-full flex flex-col items-start 
+                justify-center px-4 h-screen'
             >
 
                 <LoadingSkeleton />
