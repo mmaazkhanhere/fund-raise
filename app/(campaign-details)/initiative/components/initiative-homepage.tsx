@@ -10,6 +10,7 @@ import { Progress } from "@/components/ui/progress"
 import { addDays, differenceInCalendarDays } from 'date-fns';
 import { Button } from '@/components/ui/button';
 import DataChart from './data-chart';
+import PaymentModal from './payment-modal';
 
 type Props = {}
 
@@ -27,10 +28,7 @@ const InitiativeHomepage = (props: Props) => {
     }, [campaignId, dispatch]);
 
 
-    console.log("campaign.fundReceived:", campaign.fundReceived);
     const [progress, setProgress] = useState<number>(+campaign.fundReceived!);
-
-    console.log("progress:", progress);
 
     if (loadingState || !campaign) {
         return (
@@ -106,13 +104,7 @@ const InitiativeHomepage = (props: Props) => {
                             {daysLeft()} days left
                         </span>
                     </div>
-                    <Button
-                        variant='accent'
-                        size='lg'
-                        className='w-full'
-                    >
-                        Back This Project
-                    </Button>
+                    <PaymentModal />
                 </div>
             </div>
             <div className='flex flex-col items-start gap-5'>
