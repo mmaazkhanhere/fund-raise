@@ -27,9 +27,12 @@ const InitiativeHomepage = (props: Props) => {
     }, [campaignId, dispatch]);
 
 
-    const [progress, setProgress] = useState<number>(campaign?.fundReceived!)
+    console.log("campaign.fundReceived:", campaign.fundReceived);
+    const [progress, setProgress] = useState<number>(+campaign.fundReceived!);
 
-    if (loadingState) {
+    console.log("progress:", progress);
+
+    if (loadingState || !campaign) {
         return (
             <section
                 className='max-w-7xl mx-auto w-full flex flex-col items-start px-4'
@@ -54,7 +57,7 @@ const InitiativeHomepage = (props: Props) => {
         >
 
             <DataChart
-                data={campaign.fundsReceivedLog!}
+                data={campaign?.fundsReceivedLog!}
             />
 
             <div className='grid lg:grid-cols-2 gap-5 lg:gap-0'>

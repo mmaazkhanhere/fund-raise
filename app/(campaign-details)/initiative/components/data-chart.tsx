@@ -1,42 +1,48 @@
+
+
 import { IFundReceivedLog } from '@/interfaces-d';
-import React from 'react'
-import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
+import React from 'react';
+import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
 type Props = {
-    data?: IFundReceivedLog[]
-}
+    data?: IFundReceivedLog[];
+};
 
 const DataChart = ({ data }: Props) => {
+
+    const placeholderData = [
+        { receivedAt: '2023-03-26', amount: 0 },
+        { receivedAt: '2023-03-27', amount: 20 }];
 
     const chartData = data?.map(log => ({
         receivedAt: log.receivedAt,
         amount: log.amount,
     }));
 
-    console.log(chartData);
-    console.log(data);
-
     return (
-        <section
-            className='w-full border'
-        >
-            <ResponsiveContainer width={500} height={300} style={{ border: 1 }}>
-                <LineChart data={chartData}>
-                    <XAxis />
-                    <YAxis />
-                    <Tooltip />
+        <section className='w-full border'>
 
-                    <Line
-                        type="monotone"
-                        dataKey="fundsReceived"
-                        stroke="#8884d8"
+            <ResponsiveContainer width="100%" height="100%">
+                <AreaChart data={placeholderData}>
+                    <CartesianGrid />
+                    <XAxis
+                        dataKey='receivedAt'
+                        name='Date'
                     />
+                    <YAxis
 
-                </LineChart>
+                    />
+                    <Tooltip />
+                    <Area
+                        type="monotone"
+                        dataKey="amount"
+                        stroke="#81f08f"
+                        fill="#81f08f"
+                    />
+                </AreaChart>
             </ResponsiveContainer>
         </section>
+    );
+};
 
-    )
-}
-
-export default DataChart
+export default DataChart;
