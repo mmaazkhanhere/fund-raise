@@ -20,7 +20,10 @@ export const GET = async (request: NextRequest) => {
 
         const campaign = await primsadb.campaign.findUnique({
             where: {
-                id: Number(campaignId)
+                id: campaignId
+            },
+            include: {
+                fundsRecieved: true
             }
         })
 

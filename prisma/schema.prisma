@@ -24,7 +24,7 @@ model User{
 }
 
 model Campaign{
-  id Int @id @default(autoincrement())
+  id   String    @id @default(uuid()) @unique
   title String
   tagline String
   imageUrl String
@@ -32,10 +32,21 @@ model Campaign{
   niche String
   description String
   durationInDays Int
-  fundsReceiver String
   fundGoal Float
-  fundReceived Float @default(0)
+  fundsReceiver String
+  fundsWithdrawn Boolean @default(false)
+  fundReceived      Float           @default(0)
   creatorId String
   createdAt DateTime @default(now())
+
+  fundsRecieved FundReceivedLog[]
   creator User @relation(fields:[creatorId], references: [id], onDelete: Cascade)
+}
+
+model FundReceivedLog {
+  id           String   @id @default(uuid()) @unique
+  amount       Float @default(0)
+  receivedAt   DateTime @default(now())
+  campaignId   String
+  campaign     Campaign @relation(fields: [campaignId], references: [id])
 }

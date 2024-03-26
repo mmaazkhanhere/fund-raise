@@ -27,9 +27,16 @@ export interface IUser {
     campaigns?: ICampaign[];
 }
 
+export interface IFundReceivedLog {
+    id: string;
+    amount: number;
+    receivedAt: Date;
+    campaignId: string;
+    campaign: ICampaign
+}
 
 export interface ICampaign {
-    id?: number;
+    id?: string;
     title?: string;
     tagline?: string;
     imageUrl?: string;
@@ -37,10 +44,12 @@ export interface ICampaign {
     niche?: string;
     description?: string;
     durationInDays?: number;
-    fundsReceiver?: string;
     fundGoal?: number;
-    fundReceived?: number;
+    fundsReceiver?: string;
+    fundsWithdrawn?: boolean;
+    fundsReceived?: number;
     creatorId?: string;
-    createdAt?: Date
-    creator?: IUser
+    createdAt?: Date;
+    creator?: IUser;
+    fundReceivedLog?: IFundReceivedLog[];
 }

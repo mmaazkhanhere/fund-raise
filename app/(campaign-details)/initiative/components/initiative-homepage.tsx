@@ -26,7 +26,7 @@ const InitiativeHomepage = (props: Props) => {
     }, [campaignId, dispatch]);
 
 
-    const [progress, setProgress] = useState<number>(campaign?.fundReceived!)
+    const [progress, setProgress] = useState<number>(campaign.fundsReceived!)
 
     if (loadingState) {
         return (

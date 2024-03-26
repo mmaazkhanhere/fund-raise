@@ -14,7 +14,7 @@ type Props = {
 
 const CampaignCard = ({ campaign }: Props) => {
 
-    const [progress, setProgress] = useState<number>(campaign.fundReceived!)
+    const [progress, setProgress] = useState<number>(campaign.fundsReceived!)
 
     return (
         <Link

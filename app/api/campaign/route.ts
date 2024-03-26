@@ -9,7 +9,8 @@ export const GET = async () => {
     try {
         const campaignList = await prismadb.campaign.findMany({
             include: {
-                creator: true
+                creator: true,
+                fundsRecieved: true
             }
         })
 
