@@ -18,7 +18,7 @@ const CampaigningNow = (props: Props) => {
         dispatch(getCampaignList());
     }, [dispatch]);
 
-    if (loadingState || campaignList.length == 0) {
+    if (loadingState || campaignList?.length == 0) {
         return (
             <section
                 className='max-w-7xl mx-auto w-full flex flex-col items-start px-4'
@@ -42,7 +42,7 @@ const CampaigningNow = (props: Props) => {
             <div className='mt-16 grid md:grid-cols-2 lg:grid-cols-3 w-full gap-10'>
 
                 {
-                    campaignList.map(campaign => (
+                    campaignList?.map(campaign => (
                         <CampaignCard
                             key={campaign.id}
                             campaign={campaign}

@@ -24,6 +24,7 @@ import {
 } from "@/components/ui/select"
 
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
+import { useToast } from "@/components/ui/use-toast"
 
 import { Input } from "@/components/ui/input"
 import { Textarea } from '../ui/textarea'
@@ -39,6 +40,7 @@ const CampaignCreationHomepage = (props: Props) => {
 
     const dispatch = useAppDispatch();
     const router = useRouter();
+    const { toast } = useToast();
 
     const formSchema = z.object({
         title: z.string().max(33, {
@@ -83,6 +85,10 @@ const CampaignCreationHomepage = (props: Props) => {
             await dispatch(
                 createCampaign(values)
             );
+            toast({
+                title: 'Campaign Created Successfully',
+                description: 'Lets save our Earth',
+            })
             router.push('/');
         } catch (error) {
             console.error('CREATE_CAMPAIGN_ON_SUBMIT_FUNCTION_ERROR', error);

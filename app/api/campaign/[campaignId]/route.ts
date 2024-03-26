@@ -23,7 +23,7 @@ export const GET = async (request: NextRequest) => {
                 id: campaignId
             },
             include: {
-                fundsRecieved: true
+                fundsReceivedLog: true
             }
         })
 

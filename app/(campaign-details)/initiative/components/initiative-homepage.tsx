@@ -9,6 +9,7 @@ import React, { useEffect, useState } from 'react'
 import { Progress } from "@/components/ui/progress"
 import { addDays, differenceInCalendarDays } from 'date-fns';
 import { Button } from '@/components/ui/button';
+import DataChart from './data-chart';
 
 type Props = {}
 
@@ -26,7 +27,7 @@ const InitiativeHomepage = (props: Props) => {
     }, [campaignId, dispatch]);
 
 
-    const [progress, setProgress] = useState<number>(campaign.fundsReceived!)
+    const [progress, setProgress] = useState<number>(campaign?.fundReceived!)
 
     if (loadingState) {
         return (
@@ -51,6 +52,11 @@ const InitiativeHomepage = (props: Props) => {
             className='max-w-7xl mx-auto mt-10 px-4 flex flex-col items-start
             gap-10'
         >
+
+            <DataChart
+                data={campaign.fundsReceivedLog!}
+            />
+
             <div className='grid lg:grid-cols-2 gap-5 lg:gap-0'>
                 <div className='w-full'>
                     <Image
@@ -81,7 +87,7 @@ const InitiativeHomepage = (props: Props) => {
                                 className='text-4xl lg:text-5xl text-[#81f08f] font-bold'
                             >
                                 ${progress}
-                            </span> USD raised
+                            </span> / {campaign.fundGoal} USD raised
                         </p>
 
                         <div className='flex items-center w-full'>

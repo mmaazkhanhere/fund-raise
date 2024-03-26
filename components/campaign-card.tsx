@@ -14,8 +14,7 @@ type Props = {
 
 const CampaignCard = ({ campaign }: Props) => {
 
-    const [progress, setProgress] = useState<number>(campaign.fundsReceived!)
-
+    const [progress, setProgress] = useState<number>(campaign.fundReceived!);
     return (
         <Link
             href={`/${(campaign.category)?.toLowerCase()}/${campaign.id}`}
@@ -54,11 +53,11 @@ const CampaignCard = ({ campaign }: Props) => {
                         </div>
 
                         <span className='text-sm text-[#0f2417]/60'>
-                            {(progress / campaign.fundGoal!) * 100}%
+                            {Number(((progress / campaign.fundGoal!) * 100).toFixed(2))}%
                         </span>
                     </div>
                     <Progress
-                        value={(progress / campaign.fundGoal!) * 100}
+                        value={Number(((progress / campaign.fundGoal!) * 100).toFixed(2))}
                         className='w-full'
                     />
                 </div>

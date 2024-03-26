@@ -10,7 +10,7 @@ export const GET = async () => {
         const campaignList = await prismadb.campaign.findMany({
             include: {
                 creator: true,
-                fundsRecieved: true
+                fundsReceivedLog: true
             }
         })
 
@@ -35,7 +35,7 @@ export const POST = async (request: NextRequest) => {
             return new NextResponse('Not Authorized', { status: 401 });
         }
 
-        const camapign = await prismadb.campaign.create({
+        const campaign = await prismadb.campaign.create({
             data: {
                 title: body.title,
                 tagline: body.tagline,
@@ -47,10 +47,11 @@ export const POST = async (request: NextRequest) => {
                 durationInDays: body.durationInDays,
                 fundGoal: body.fundGoal,
                 fundsReceiver: body.fundsReceiver,
+                fundsReceivedLog: { create: [] }
             }
         })
 
-        return NextResponse.json(camapign);
+        return NextResponse.json(campaign);
 
     } catch (error) {
         console.error('NEW_CAMPAIGN_POST_API_ERROR', error);

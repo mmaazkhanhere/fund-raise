@@ -47,9 +47,9 @@ export interface ICampaign {
     fundGoal?: number;
     fundsReceiver?: string;
     fundsWithdrawn?: boolean;
-    fundsReceived?: number;
+    fundReceived?: number;
     creatorId?: string;
     createdAt?: Date;
     creator?: IUser;
-    fundReceivedLog?: IFundReceivedLog[];
+    fundsReceivedLog?: IFundReceivedLog[];
 }

@@ -5,6 +5,7 @@ import { ClerkProvider } from '@clerk/nextjs'
 import Navbar from "@/components/layout/navbar";
 import Footer from "@/components/layout/footer";
 import ReduxProvider from "@/lib/(redux-store)/(redux-setup)/redux-provider";
+import { Toaster } from "@/components/ui/toaster";
 
 const openSans = Open_Sans({ subsets: ["latin"] });
 
@@ -25,6 +26,7 @@ export default function RootLayout({
           <ReduxProvider>
             <Navbar />
             {children}
+            <Toaster />
             <Footer />
           </ReduxProvider>
         </body>
