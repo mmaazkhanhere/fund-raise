@@ -24,14 +24,18 @@ import {
 
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
+import { useToast } from '@/components/ui/use-toast'
+import getStripePromise from '@/lib/stripe'
 
 
-type Props = {}
+type Props = {
+    campaignId: string
+}
 
-const PaymentModal = (props: Props) => {
+const PaymentModal = ({ campaignId }: Props) => {
 
     const [donation, setDonation] = useState<number>(0)
-    console.log(donation)
+    const { toast } = useToast();
 
     const formSchema = z.object({
         fullName: z.string().min(1, {
@@ -56,7 +60,29 @@ const PaymentModal = (props: Props) => {
     const isLoading = form.formState.isSubmitting;
 
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
-        console.log(values)
+
+        const stripe = await getStripePromise();
+
+        try {
+            const response = await fetch('/api/stripe-session', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ values, campaignId: campaignId })
+            });
+
+            const data = await response.json();
+            window.location.href = data.url;
+            toast({
+                title: 'Successful Donation',
+                description: 'Thank you for contributing to our initiative',
+            })
+
+        } catch (error) {
+            console.log('PAYMENT_MODAL_ON_SUBMIT_FUNCTION_ERROR', error);
+        }
+
     }
 
     const handleDonationChange = (donation: number) => {
@@ -90,7 +116,7 @@ const PaymentModal = (props: Props) => {
                                 <FormItem
                                     className='max-w-xl'
                                 >
-                                    <FormLabel className='font-medium md:text-lg'>
+                                    <FormLabel className='font-medium'>
                                         Enter your full name
                                     </FormLabel>
                                     <FormControl>
@@ -115,7 +141,7 @@ const PaymentModal = (props: Props) => {
                                 <FormItem
                                     className='max-w-xl'
                                 >
-                                    <FormLabel className='font-medium md:text-lg'>
+                                    <FormLabel className='font-medium '>
                                         Enter your email address
                                     </FormLabel>
                                     <FormControl>
@@ -138,11 +164,11 @@ const PaymentModal = (props: Props) => {
                             name="donations"
                             render={({ field }) => (
                                 <FormItem className="max-w-xl">
-                                    <FormLabel className="font-medium md:text-lg">
+                                    <FormLabel className="font-medium ">
                                         Select or input custom donation
                                     </FormLabel>
                                     <FormControl>
-                                        <div className="grid lg:grid-cols-3 w-full gap-5">
+                                        <div className="grid grid-cols-2 lg:grid-cols-3 w-full gap-5">
                                             {
                                                 [25, 50, 100, 250, 500, 1000].map((value) => (
                                                     <Button
@@ -167,7 +193,7 @@ const PaymentModal = (props: Props) => {
                                                 required
                                                 value={donation}
                                                 onChange={event => handleDonationChange(Number(event.target.value))}
-                                                className='lg:col-span-3 w-full'
+                                                className='col-span-2 lg:col-span-3 w-full'
                                             />
                                         </div>
                                     </FormControl>

@@ -1,6 +1,12 @@
 import { auth, currentUser } from "@clerk/nextjs"
 import { NextRequest, NextResponse } from "next/server"
-import { stripe } from "@/lib/stripe"
+import Stripe from "stripe";
+
+const key = process.env.STRIPE_SECRET_KEY || "";
+
+const stripe = new Stripe(key, {
+    apiVersion: "2023-10-16",
+});
 
 export const POST = async (request: NextRequest) => {
     try {
@@ -8,15 +14,17 @@ export const POST = async (request: NextRequest) => {
         const signInUser = await currentUser();
 
         if (!userId || !signInUser) {
-            return new NextResponse("Unauthorised", { status: 401 });
+            return new NextResponse("Unauthorized", { status: 401 });
         }
 
-        const { name, email, campaignId, amount } = await request.json();
+
+        const body = await request.json();
+
+        const { fullName, emailAddress, donation } = body.values;
+        const { campaignId } = body;
 
         const session = await stripe.checkout.sessions.create({
             mode: 'payment',
-            billing_address_collection: 'auto',
-            customer_email: signInUser.emailAddresses[0].emailAddress,
             payment_method_types: ['card'],
             line_items: [
                 {
@@ -26,21 +34,23 @@ export const POST = async (request: NextRequest) => {
                             name: 'FundRaise',
                             description: 'Contribute to saving the Earth with every penny you pay!'
                         },
-                        unit_amount: amount
+                        unit_amount: donation * 100
                     },
                     quantity: 1,
                 },
             ],
             metadata: {
-                userId, name, email, campaignId
+                fullName, emailAddress, donation, campaignId
             },
             success_url: `${request.headers.get("origin")}/success`,
             cancel_url: `${request.headers.get("origin")}/?canceled=true`
         })
 
-        return new NextResponse(JSON.stringify({ url: session.url }))
-    } catch (error) {
-        console.log("STRIPE_SESSION_ERROR", error);
+        return new NextResponse(JSON.stringify({ url: session.url })); //stripe session url returned
+    }
+
+    catch (error) {
+        console.log("STRIPE_SESSION_API_ERROR", error);
         return new NextResponse("Internal Error", { status: 500 });
     }
 }

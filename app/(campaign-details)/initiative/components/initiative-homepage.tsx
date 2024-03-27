@@ -38,9 +38,10 @@ const InitiativeHomepage = (props: Props) => {
         return (
             <section
                 className='max-w-7xl mx-auto w-full flex flex-col items-start 
-                justify-center px-4 h-screen'
+                justify-center px-4 h-screen gap-16'
             >
-
+                <LoadingSkeleton />
+                <LoadingSkeleton />
                 <LoadingSkeleton />
             </section>
         )
@@ -109,7 +110,9 @@ const InitiativeHomepage = (props: Props) => {
                             {daysLeft()} days left
                         </span>
                     </div>
-                    <PaymentModal />
+                    <PaymentModal
+                        campaignId={campaignId!}
+                    />
                 </div>
             </div>
             <div className='flex flex-col items-start gap-5'>

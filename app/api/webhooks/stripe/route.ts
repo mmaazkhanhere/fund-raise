@@ -1,8 +1,13 @@
 
 import Stripe from 'stripe'
 import { NextRequest, NextResponse } from "next/server";
-import { stripe } from "@/lib/stripe"
 import prismadb from '@/lib/prismadb'
+
+const key = process.env.STRIPE_SECRET_KEY || "";
+
+const stripe = new Stripe(key, {
+    apiVersion: "2023-10-16",
+});
 
 export const POST = async (request: Request) => {
 
