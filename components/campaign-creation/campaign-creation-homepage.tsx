@@ -61,7 +61,7 @@ const CampaignCreationHomepage = (props: Props) => {
 
         fundsReceiver: z.string().min(1, 'Please select an option'),
         fundGoal: z.coerce.number().min(7, 'Funding target must be positive'),
-
+        stripeAccountId: z.string().min(1, 'Enter stripe account id'),
     })
 
     const form = useForm<z.infer<typeof formSchema>>({
@@ -74,7 +74,8 @@ const CampaignCreationHomepage = (props: Props) => {
             niche: '',
             durationInDays: 1,
             fundsReceiver: '',
-            fundGoal: 1
+            fundGoal: 1,
+            stripeAccountId: '',
         }
     })
 
@@ -405,6 +406,36 @@ const CampaignCreationHomepage = (props: Props) => {
                                         required
                                         {...field}
                                         onChange={event => field.onChange(event.target.value)}
+                                    />
+
+                                </FormControl>
+                                <FormMessage className='text-sm' />
+
+                            </FormItem>
+                        )}
+                    />
+
+                    {/*Stripe Account Id */}
+                    <FormField
+                        name="stripeAccountId"
+                        render={({ field }) => (
+                            <FormItem
+                                className='max-w-xl'
+                            >
+                                <FormLabel className='font-medium md:text-lg'>
+                                    Stripe Account ID
+                                </FormLabel>
+                                <FormDescription className='text-xs md:text-sm '>
+                                    Enter you stripe account to withdraw funds. Make sure it is
+                                    correct as it is not changeable
+                                </FormDescription>
+                                <FormControl>
+                                    <Input
+                                        disabled={isLoading}
+                                        placeholder='acc...'
+                                        maxLength={33}
+                                        required
+                                        {...field}
                                     />
 
                                 </FormControl>

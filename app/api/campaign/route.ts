@@ -43,7 +43,8 @@ export const POST = async (request: NextRequest) => {
                 durationInDays: body.durationInDays,
                 fundGoal: body.fundGoal,
                 fundsReceiver: body.fundsReceiver,
-                fundsReceivedLog: { create: [] }
+                fundsReceivedLog: { create: [] },
+                fundsReceiverStripeId: body.stripeAccountId,
             }
         })
 

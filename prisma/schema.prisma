@@ -34,6 +34,7 @@ model Campaign{
   durationInDays Int
   fundGoal Float
   fundsReceiver String
+  fundsReceiverStripeId String
   fundsWithdrawn Boolean @default(false)
   fundReceived      Float           @default(0)
   creatorId String

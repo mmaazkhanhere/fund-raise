@@ -93,7 +93,8 @@ const PaymentModal = ({ campaignId }: Props) => {
     return (
         <Dialog>
             <DialogTrigger
-                className='bg-[#81f08f] w-full py-3 rounded-xl text-sm'
+                className='bg-[#81f08f] hover:bg-[#81f08f]/60 transition duration-500
+                w-full py-3 rounded-xl text-sm'
             >
                 Back This Project
             </DialogTrigger>

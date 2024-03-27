@@ -5,12 +5,13 @@ import { useAppDispatch, useAppSelector } from '@/lib/(redux-store)/(redux-setup
 import { getCampaign } from '@/lib/(redux-store)/(slices)/campaign';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { Progress } from "@/components/ui/progress"
 import { addDays, differenceInCalendarDays } from 'date-fns';
-import { Button } from '@/components/ui/button';
 import DataChart from './data-chart';
 import PaymentModal from './payment-modal';
+import { useUser } from '@clerk/nextjs';
+import { Button } from '@/components/ui/button';
 
 type Props = {}
 
@@ -22,6 +23,7 @@ const InitiativeHomepage = (props: Props) => {
     const campaign = useAppSelector((state) => state.campaign.campaign);
     const loadingState = useAppSelector((state) => state.campaign.isLoading);
 
+    const user = useUser();
 
     useEffect(() => {
         dispatch(getCampaign(campaignId));
@@ -75,15 +77,28 @@ const InitiativeHomepage = (props: Props) => {
                 </div>
                 <div
                     className='w-full flex flex-col items-start justify-between '>
+
                     <div className='flex flex-col items-start'>
-                        <span className='font-black uppercase text-[#3a5846] tracking-wider'>
-                            {campaign.category}
-                        </span>
+                        <div className='flex items-center gap-x-4'>
+                            <span className='font-black uppercase text-[#81f08f] tracking-wider'>
+                                {campaign.niche}
+                            </span>
+                            <span className='font-black uppercase text-[#3a5846] tracking-wider'>
+                                {campaign.category}
+                            </span>
+                        </div>
+
                         <h1 className='text-2xl lg:text-4xl font-bold mt-6'>
                             {campaign.title}
                         </h1>
                         <p className='lg:text-lg font-normal mt-2'>
                             {campaign.tagline}
+                        </p>
+
+                        <p className='mt-6 lg:text-lg'>
+                            {campaign.category} by <span className='text-[#3a5846] uppercase text-base font-bold'>
+                                {campaign.creator?.firstName} {campaign.creator?.lastName}
+                            </span>
                         </p>
                     </div>
 
@@ -110,9 +125,23 @@ const InitiativeHomepage = (props: Props) => {
                             {daysLeft()} days left
                         </span>
                     </div>
-                    <PaymentModal
-                        campaignId={campaignId!}
-                    />
+
+                    <div className='flex items-center gap-x-4 w-full'>
+                        <PaymentModal
+                            campaignId={campaignId!}
+                        />
+
+                        {
+                            user.user?.id == campaign.creatorId && <Button
+                                variant='outline'
+                                className='hover:scale-95 transition duration-500'
+                            >
+                                Withdraw Funds
+                            </Button>
+                        }
+
+                    </div>
+
                 </div>
             </div>
             <div className='flex flex-col items-start gap-5'>

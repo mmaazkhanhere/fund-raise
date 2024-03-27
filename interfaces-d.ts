@@ -50,6 +50,7 @@ export interface ICampaign {
     fundReceived?: number;
     creatorId?: string;
     createdAt?: Date;
+    stripeAccountId?: string
     creator?: IUser;
     fundsReceivedLog?: IFundReceivedLog[];
 }

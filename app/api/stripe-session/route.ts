@@ -43,7 +43,7 @@ export const POST = async (request: NextRequest) => {
             metadata: {
                 donation, campaignId
             },
-            success_url: `${request.headers.get("origin")}/success`,
+            success_url: `${request.headers.get("origin")}/`,
             cancel_url: `${request.headers.get("origin")}/?canceled=true`
         })
 
