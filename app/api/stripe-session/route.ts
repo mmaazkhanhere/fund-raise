@@ -22,6 +22,7 @@ export const POST = async (request: NextRequest) => {
 
         const { fullName, emailAddress, donation } = body.values;
         const { campaignId } = body;
+        console.log(campaignId, fullName, emailAddress, donation);
 
         const session = await stripe.checkout.sessions.create({
             mode: 'payment',
@@ -40,7 +41,7 @@ export const POST = async (request: NextRequest) => {
                 },
             ],
             metadata: {
-                fullName, emailAddress, donation, campaignId
+                donation, campaignId
             },
             success_url: `${request.headers.get("origin")}/success`,
             cancel_url: `${request.headers.get("origin")}/?canceled=true`
@@ -50,7 +51,7 @@ export const POST = async (request: NextRequest) => {
     }
 
     catch (error) {
-        console.log("STRIPE_SESSION_API_ERROR", error);
+        console.error("STRIPE_SESSION_API_ERROR", error);
         return new NextResponse("Internal Error", { status: 500 });
     }
 }

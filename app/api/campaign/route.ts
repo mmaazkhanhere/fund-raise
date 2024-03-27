@@ -4,8 +4,6 @@ import { auth } from "@clerk/nextjs";
 
 export const GET = async () => {
 
-    console.log('GET request')
-
     try {
         const campaignList = await prismadb.campaign.findMany({
             include: {
@@ -13,8 +11,6 @@ export const GET = async () => {
                 fundsReceivedLog: true
             }
         })
-
-        console.log(campaignList);
 
         return NextResponse.json(campaignList);
 

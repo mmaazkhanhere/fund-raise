@@ -11,7 +11,7 @@ const stripe = new Stripe(key, {
 
 export const POST = async (request: Request) => {
 
-    const body = await request.json();
+    const body = await request.text();
 
     async function getSignature() {
         const signature = request.headers.get('Stripe-Signature') as string;
@@ -22,7 +22,7 @@ export const POST = async (request: Request) => {
         );
     };
 
-    const signature = await getSignature(); //get signature by calling the getSignature function
+    const signature = await getSignature();
 
     let event: Stripe.Event
 
@@ -32,40 +32,62 @@ export const POST = async (request: Request) => {
             signature,
             process.env.STRIPE_WEBHOOK_SECRET_KEY!
         )
+
     } catch (error) {
+        console.error('STRIPE_WEBHOOK_ERROR', error);
         return new NextResponse(`Stripe Webhook Error`, { status: 400 })
     }
 
     const session = event.data.object as Stripe.Checkout.Session
 
+    console.log(event.type)
+
     if (event.type === 'checkout.session.completed') {
 
-        if (!session || !session.metadata || !session.metadata.userId || !session.metadata.campaignId || !session.amount_total) {
+        const metadata = session.metadata!
+        const campaignId = metadata.campaignId;
+        const amount_total = Number(metadata.donation)
+
+
+        if (!session || !metadata || !campaignId || !amount_total) {
+
             return new NextResponse("Invalid session data", { status: 400 });
         }
 
         // Ensure that the amount received is greater than 0
-        if (session.amount_total <= 0) {
+        if (amount_total <= 0) {
             return new NextResponse("Invalid amount received", { status: 400 });
         }
+
+        const campaignFunds = await prismadb.campaign.findUnique({
+            where: {
+                id: campaignId,
+            },
+            select: {
+                fundReceived: true,
+            }
+        })
+
+        const updatedFunds = campaignFunds?.fundReceived as number + amount_total;
 
 
         await prismadb.fundReceivedLog.create({
             data: {
-                amount: session.amount_total as number,
-                campaignId: session.metadata.campaignId as string
+                amount: amount_total as number,
+                campaignId: campaignId as string
             }
         });
 
         await prismadb.campaign.update({
             where: {
-                id: session.metadata.campaignId as string,
+                id: campaignId as string,
             },
             data: {
-                fundReceived: session.amount_total as number,
+                fundReceived: updatedFunds
             }
         });
 
+        return new NextResponse("Webhook processed successfully", { status: 200 });
     }
 
 }
