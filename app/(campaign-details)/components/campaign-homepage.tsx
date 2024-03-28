@@ -12,10 +12,12 @@ import DataChart from './data-chart';
 import PaymentModal from './payment-modal';
 import { useUser } from '@clerk/nextjs';
 import { Button } from '@/components/ui/button';
+import getStripePromise from '@/lib/stripe';
+import { useToast } from '@/components/ui/use-toast'
 
 type Props = {}
 
-const InitiativeHomepage = (props: Props) => {
+const CampaignHomePage = (props: Props) => {
 
     const campaignId = usePathname().split('/').pop();
 
@@ -23,6 +25,7 @@ const InitiativeHomepage = (props: Props) => {
     const campaign = useAppSelector((state) => state.campaign.campaign);
     const loadingState = useAppSelector((state) => state.campaign.isLoading);
 
+    const { toast } = useToast();
     const user = useUser();
 
     useEffect(() => {
@@ -49,6 +52,51 @@ const InitiativeHomepage = (props: Props) => {
         )
     }
 
+    const handleWithDrawFund = async () => {
+        const stripe = await getStripePromise();
+        const fundReceived = campaign.fundReceived;
+        console.log(fundReceived)
+        const stripeAccountId = campaign.fundsReceiverStripeId;
+        console.log(campaign)
+        console.log(stripeAccountId)
+        try {
+
+            console.log('try block')
+
+            const response = await fetch('/api/stripe-payout', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ fundReceived, stripeAccountId, campaignId })
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+
+                console.log(data)
+
+                toast({
+                    title: 'Funds Successfully Withdrawn',
+                    variant: 'default',
+                });
+            } else {
+
+                toast({
+                    title: 'Failed to withdraw funds',
+                    variant: 'destructive',
+                });
+            }
+        } catch (error) {
+            console.log('Error occurred while withdrawing funds:', error);
+            toast({
+                title: 'Something went wrong',
+                variant: 'destructive'
+            });
+        }
+
+    }
+
 
     function daysLeft() {
         const endDate = addDays(new Date(campaign.createdAt!), campaign.durationInDays!);
@@ -66,7 +114,7 @@ const InitiativeHomepage = (props: Props) => {
                 data={campaign?.fundsReceivedLog!}
             />
 
-            <div className='grid lg:grid-cols-2 gap-5 lg:gap-0'>
+            <div className='grid lg:grid-cols-2 gap-5'>
                 <div className='w-full'>
                     <Image
                         src={campaign.imageUrl!}
@@ -135,6 +183,7 @@ const InitiativeHomepage = (props: Props) => {
                             user.user?.id == campaign.creatorId && <Button
                                 variant='outline'
                                 className='hover:scale-95 transition duration-500'
+                                onClick={handleWithDrawFund}
                             >
                                 Withdraw Funds
                             </Button>
@@ -157,4 +206,4 @@ const InitiativeHomepage = (props: Props) => {
     )
 }
 
-export default InitiativeHomepage
+export default CampaignHomePage

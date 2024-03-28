@@ -3,7 +3,7 @@ import CampaignHomePage from '../../components/campaign-homepage'
 
 type Props = {}
 
-const InitiativePage = (props: Props) => {
+const ProjectPage = (props: Props) => {
     return (
         <React.Fragment>
             <CampaignHomePage />
@@ -11,4 +11,4 @@ const InitiativePage = (props: Props) => {
     )
 }
 
-export default InitiativePage
+export default ProjectPage
