@@ -6,9 +6,10 @@ type Props = {
     imageURL?: string;
     subHeading?: string;
     backgroundImagePosition?: string;
+    quote?: string;
 }
 
-const RoutesHomepage = ({ mainHeading, imageURL, subHeading, backgroundImagePosition }: Props) => {
+const RoutesHomepage = ({ mainHeading, imageURL, subHeading, backgroundImagePosition, quote }: Props) => {
     return (
         <section
             className='px-4 mt-10'
@@ -43,7 +44,7 @@ const RoutesHomepage = ({ mainHeading, imageURL, subHeading, backgroundImagePosi
             </section>
             <section className='max-w-7xl mx-auto'>
                 <QuoteSection
-                    quote={`Climate change isn't just a threat to our planet; it's a call to action for humanity's survival. Every degree of warming counts, and every action matters. The time to act is now, before it's too late`}
+                    quote={quote}
                 />
             </section>
         </section>

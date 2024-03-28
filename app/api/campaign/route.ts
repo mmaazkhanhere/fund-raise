@@ -9,6 +9,10 @@ export const GET = async () => {
             include: {
                 creator: true,
                 fundsReceivedLog: true
+            },
+            take: 6,
+            orderBy: {
+                fundReceived: 'asc'
             }
         })
 
