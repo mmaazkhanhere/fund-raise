@@ -3,7 +3,7 @@ import prismadb from '@/lib/prismadb'
 
 export const GET = async (request: NextRequest) => {
 
-    const nicheName = request.nextUrl.pathname.split('/').pop();
+    const nicheName = decodeURIComponent(request.nextUrl.pathname.split('/').pop() as string);
 
     try {
 

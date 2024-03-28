@@ -14,9 +14,11 @@ export const getCampaign = createAsyncThunk('campaignSlice/getCampaign', async (
         const request = await axios.get(`/api/campaign/${campaignId}`);
         return request.data;
     } catch (error) {
-
+        console.error('GET_CAMPAIGN_REDUX_STORE_FUNCTION_ERROR', error);
     }
 })
+
+
 
 const campaignSlice = createSlice({
     name: 'campaign',
@@ -38,6 +40,7 @@ const campaignSlice = createSlice({
             state.isLoading = false;
             state.error = 'GET_CAMPAIGN_REJECTED_FUNCTION_ERROR';
         })
+
     }
 })
 

@@ -20,15 +20,15 @@ const RoutesHomepage = ({ mainHeading, imageURL, subHeading, backgroundImagePosi
                     backgroundRepeat: 'no-repeat',
                     backgroundPosition: `${backgroundImagePosition}`,
                 }}
-                className='w-full h-[700px] hidden md:flex items-center justify-start'
+                className='w-full h-[600px] lg:h-[700px] flex items-center justify-start'
             >
                 <div
                     className='max-w-7xl w-full mx-auto text-[#f8f8f2] flex flex-col 
-                    items-start justify-center px-4'
+                    items-start px-4'
                 >
                     <div className='flex flex-col max-w-3xl gap-y-2'>
                         <h1
-                            className='md:text-6xl lg:text-8xl font-black uppercase leading-tight'
+                            className='text-5xl md:text-6xl lg:text-8xl font-black uppercase leading-tight'
                         >
                             {mainHeading}
                         </h1>

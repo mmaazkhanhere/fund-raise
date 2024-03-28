@@ -1,21 +1,21 @@
 "use client"
 
-import React, { useEffect } from 'react'
-import CampaignCard from '../campaign-card'
+import CampaignCard from '@/components/campaign-card';
+import LoadingSkeleton from '@/components/loading-skeleton';
 import { useAppDispatch, useAppSelector } from '@/lib/(redux-store)/(redux-setup)/hooks'
-import { getCampaignList } from '@/lib/(redux-store)/(slices)/campaignListSlice'
-import LoadingSkeleton from '../loading-skeleton'
+import { getNicheSpecificCampaign } from '@/lib/(redux-store)/(slices)/campaignListSlice';
+import React, { useEffect } from 'react'
 
 type Props = {}
 
-const CampaigningNow = (props: Props) => {
+const ClimateChangeCampaigns = (props: Props) => {
 
     const dispatch = useAppDispatch();
     const campaignList = useAppSelector((state) => state.campaignList.campaignList);
     const loadingState = useAppSelector((state) => state.campaignList.isLoading);
 
     useEffect(() => {
-        dispatch(getCampaignList());
+        dispatch(getNicheSpecificCampaign('Climate Change'));
     }, [dispatch]);
 
 
@@ -32,7 +32,7 @@ const CampaigningNow = (props: Props) => {
         )
     }
 
-    console.log(campaignList[0].niche)
+    console.log(campaignList)
 
     return (
         <section
@@ -57,4 +57,4 @@ const CampaigningNow = (props: Props) => {
     )
 }
 
-export default CampaigningNow
+export default ClimateChangeCampaigns

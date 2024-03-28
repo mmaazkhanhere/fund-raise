@@ -1,5 +1,6 @@
 import RoutesHomepage from '@/components/routes-homepage'
 import React from 'react'
+import ClimateChangeCampaigns from './components/climate-change-campaigns'
 
 type Props = {}
 
@@ -12,6 +13,7 @@ const ClimateChangePage = (props: Props) => {
                 imageURL='climate-change.jpg'
                 backgroundImagePosition='center'
             />
+            <ClimateChangeCampaigns />
         </React.Fragment>
     )
 }

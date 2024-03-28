@@ -12,10 +12,18 @@ const initialState: ICampaignListState = {
 export const getCampaignList = createAsyncThunk("campaignListSlice/getCampaignList", async () => {
     try {
         const response = await axios.get('/api/campaign');
-        console.log(response.data);
         return response.data;
     } catch (error) {
         console.error('GET_CAMPAIGN_LIST_FUNCTION_ERROR', error);
+    }
+})
+
+export const getNicheSpecificCampaign = createAsyncThunk('campaignSlice/getNicheSpecificCampaign', async (nicheName?: string) => {
+    try {
+        const request = await axios.get(`/api/campaign/niche/${nicheName}`);
+        return request.data;
+    } catch (error) {
+        console.error('GET_NICHE_SPECIFIC_CAMPAIGN_REDUX_STORE_FUNCTION_ERROR', error);
     }
 })
 
@@ -35,6 +43,8 @@ const campaignListSlice = createSlice({
     reducers: {},
     extraReducers: (builder) => {
 
+        /*Cases for getCampaignList asyncThunk */
+
         builder.addCase(getCampaignList.pending, (state) => {
             state.isLoading = true;
             state.error = null;
@@ -45,6 +55,32 @@ const campaignListSlice = createSlice({
             state.campaignList = action.payload;
             state.error = null;
         });
+
+        builder.addCase(getCampaignList.rejected, (state) => {
+            state.isLoading = false;
+            state.error = 'GET_ALL_CAMPAIGN_REJECTED_FUNCTION_ERROR';
+        })
+
+
+        /*Cases for getNicheSpecificCampaign asyncThunk */
+        builder.addCase(getNicheSpecificCampaign.pending, (state) => {
+            state.isLoading = true;
+            state.error = null;
+        });
+
+        builder.addCase(getNicheSpecificCampaign.fulfilled, (state, action) => {
+            state.isLoading = false;
+            state.campaignList = action.payload;
+            state.error = null;
+        });
+
+        builder.addCase(getNicheSpecificCampaign.rejected, (state) => {
+            state.isLoading = false;
+            state.error = 'GET_NICHE_CAMPAIGN_REJECTED_FUNCTION_ERROR';
+        })
+
+
+        /*Cases for createCampaign asyncThunk */
 
         builder.addCase(createCampaign.pending, (state) => {
             state.isLoading = true;
