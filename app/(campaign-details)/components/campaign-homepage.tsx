@@ -83,7 +83,7 @@ const CampaignHomePage = (props: Props) => {
             } else {
 
                 toast({
-                    title: 'Failed to withdraw funds',
+                    title: 'Activate your Stripe Account',
                     variant: 'destructive',
                 });
             }

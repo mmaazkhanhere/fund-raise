@@ -12,7 +12,7 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
-} from "@/components/layout/navigation-menu"
+} from "@/components/ui/navigation-menu"
 
 
 export default function NavbarMenu() {
@@ -27,7 +27,7 @@ export default function NavbarMenu() {
                 <NavigationMenuLink asChild>
                   <a
                     className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-[#bdee85] via-[#a7e65d] to-[#4caf50] p-6 no-underline outline-none focus:shadow-md"
-                    href="/"
+                    href="/climate-change"
                   >
                     <div className="mb-2 mt-4 text-lg font-medium">
                       Climate Change Initiatives
@@ -38,16 +38,16 @@ export default function NavbarMenu() {
                   </a>
                 </NavigationMenuLink>
               </li>
-              <ListItem href="/" title="Conservation Projects">
+              <ListItem href="/conservation" title="Conservation Projects">
                 Efforts to protect and restore natural habitats
               </ListItem>
-              <ListItem href="/" title="Water Conservation">
+              <ListItem href="/water-conservation" title="Water Conservation">
                 Efforts to protect and conserve water resources
               </ListItem>
-              <ListItem href="/" title="Eco-Tech">
+              <ListItem href="/echo-tech" title="Eco-Tech">
                 Fund and promote eco-friendly technologies
               </ListItem>
-              <ListItem href="/" title="Eco-Education">
+              <ListItem href="/eco-education" title="Eco-Education">
                 Programs to educate about environmental issues
               </ListItem>
             </ul>

@@ -1,4 +1,4 @@
-import { clerkClient } from "@clerk/nextjs/server";
+
 import { IncomingHttpHeaders } from "http";
 import { headers } from "next/headers";
 import { NextResponse } from "next/server";
@@ -14,13 +14,16 @@ type Event = {
 };
 
 export async function POST(request: Request) {
-    const WEBHOOK_SECRET = process.env.WEBHOOK_SECRET;
+
+    const WEBHOOK_SECRET = process.env.CLERK_WEBHOOK_SECRET;
+
 
     if (!WEBHOOK_SECRET) {
         throw new Error('Please add WEBHOOK_SECRET from Clerk Dashboard to .env or .env.local');
     }
 
     const payload = await request.json();
+
 
     const headersList = headers();
     const heads = {
@@ -31,6 +34,7 @@ export async function POST(request: Request) {
 
 
     const wh = new Webhook(WEBHOOK_SECRET);
+
     let evt: Event | null = null;
 
     try {
@@ -38,23 +42,27 @@ export async function POST(request: Request) {
             JSON.stringify(payload),
             heads as IncomingHttpHeaders & WebhookRequiredHeaders
         ) as Event;
-    } catch (err) {
-        console.error((err as Error).message);
-        return NextResponse.json({}, { status: 400 });
+
+    } catch (error) {
+        console.error('CLERK_WEBHOOK_ERROR', error);
+        return NextResponse.json('CLERK_WEBHOOK_ERROR', { status: 400 });
     }
 
 
     const eventType: EventType = evt.type;
 
     try {
+
         if (eventType === 'user.created') {
-            // Handle user signup event
+
             await handleUserSignup(evt.data);
         } else if (eventType === 'user.updated') {
+
             // Handle user update event
             await handleUserUpdate(evt.data);
         }
         else if (eventType === 'user.deleted') {
+            console.log('user deleted')
             //handle user deleted event
             await handleDeleteUser(evt.data);
         }
@@ -69,6 +77,7 @@ export async function POST(request: Request) {
 async function handleUserSignup(userData: any) {
 
     try {
+
         await prismadb.user.create({
             data: {
                 id: userData.id,
@@ -78,8 +87,8 @@ async function handleUserSignup(userData: any) {
                 email: userData.email_addresses[0].email_address,
                 profileImage: userData.image_url
             },
-
         });
+        console.log('user created')
     } catch (error) {
         console.error('Error inserting user data:', error);
         throw error;
@@ -87,7 +96,9 @@ async function handleUserSignup(userData: any) {
 }
 
 async function handleUserUpdate(userData: any) {
+
     try {
+
         await prismadb.user.update({
             where: {
                 id: userData.id
@@ -100,6 +111,7 @@ async function handleUserUpdate(userData: any) {
                 profileImage: userData.image_url
             },
         });
+
     } catch (error) {
         console.error('Error updating user data:', error);
         throw error;
@@ -113,6 +125,7 @@ async function handleDeleteUser(userData: any) {
                 id: userData.id
             }
         });
+        console.log('user deleted')
     } catch (error) {
         console.error('Error deleting user data:', error);
         throw error;

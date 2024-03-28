@@ -23,7 +23,6 @@ export interface IUser {
     username?: string;
     email?: string;
     profileImageUrl?: string;
-    fullName?: string;
     campaigns?: ICampaign[];
 }
 
