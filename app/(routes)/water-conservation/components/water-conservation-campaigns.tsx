@@ -8,14 +8,14 @@ import React, { useEffect } from 'react'
 
 type Props = {}
 
-const ConservationCampaigns = (props: Props) => {
+const WaterConservationCampaigns = (props: Props) => {
 
     const dispatch = useAppDispatch();
     const campaignList = useAppSelector((state) => state.campaignList.campaignList);
     const loadingState = useAppSelector((state) => state.campaignList.isLoading);
 
     useEffect(() => {
-        dispatch(getNicheSpecificCampaign('Conservation'));
+        dispatch(getNicheSpecificCampaign('Water Conservation'));
     }, [dispatch]);
 
 
@@ -55,4 +55,4 @@ const ConservationCampaigns = (props: Props) => {
     )
 }
 
-export default ConservationCampaigns
+export default WaterConservationCampaigns
