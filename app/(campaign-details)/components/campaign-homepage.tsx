@@ -111,7 +111,7 @@ const CampaignHomePage = (props: Props) => {
         >
 
             <DataChart
-                data={campaign?.fundsReceivedLog!}
+                data={campaign?.fundsReceivedLog}
             />
 
             <div className='grid lg:grid-cols-2 gap-5'>

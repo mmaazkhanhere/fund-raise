@@ -52,6 +52,13 @@ export const POST = async (request: NextRequest) => {
             }
         })
 
+        await prismadb.fundReceivedLog.create({
+            data: {
+                amount: 0,
+                campaignId: campaign.id
+            }
+        })
+
         return NextResponse.json(campaign);
 
     } catch (error) {
