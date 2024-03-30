@@ -15,7 +15,7 @@ const CampaignCategories = (props: Props) => {
         >
             {/*Climate Change Initiatives */}
             <Link
-                href='/climate-initiative'
+                href='/climate-change'
                 className='w-full col-span-2 lg:col-span-4 h-[250px] lg:h-[350px] relative overflow-hidden
                 group'
             >
@@ -47,7 +47,7 @@ const CampaignCategories = (props: Props) => {
 
             {/* Conservation Projects */}
             <Link
-                href='/'
+                href='/conservation'
                 className='w-full overflow-hidden rounded-xl group border'>
                 <div className='relative'>
                     <Image
@@ -78,7 +78,7 @@ const CampaignCategories = (props: Props) => {
 
             {/*Water Conservation */}
             <Link
-                href='/'
+                href='/water-conservation'
                 className='w-full overflow-hidden rounded-xl group border'>
                 <div
                     className='relative'
@@ -110,7 +110,7 @@ const CampaignCategories = (props: Props) => {
 
             {/*Eco-Tech */}
             <Link
-                href='/'
+                href='/eco-tech'
                 className='w-full overflow-hidden rounded-xl group border'>
                 <div
                     className='relative'
@@ -142,7 +142,7 @@ const CampaignCategories = (props: Props) => {
 
             {/*Eco-Education */}
             <Link
-                href='/'
+                href='/eco-education'
                 className='w-full overflow-hidden rounded-xl group border'>
                 <div
                     className='relative'
