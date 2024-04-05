@@ -1,6 +1,11 @@
-import { IFundReceivedLog } from '@/interfaces-d';
+/*A react component that render a data visualization chart using data passed 
+through props */
+
+
 import React from 'react';
-import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
+
+import { IFundReceivedLog } from '@/interfaces-d';
 
 type Props = {
     data?: IFundReceivedLog[];
@@ -8,26 +13,21 @@ type Props = {
 
 const DataChart = ({ data }: Props) => {
 
+    /*function to format date in the format 'Year- Month - Date'. It takes a
+    Date object as input and returns a formatted string  */
     const formatDate = (receivedAt: Date) => {
         const date = new Date(receivedAt);
         const year = date.getFullYear();
-        const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Adding padding if needed
-        const day = date.getDate().toString().padStart(2, '0'); // Adding padding if needed
+        const month = (date.getMonth() + 1).toString().padStart(2, '0');
+        const day = date.getDate().toString().padStart(2, '0');
         return `${year}-${month}-${day}`;
     };
 
-    console.log(data)
-
-    const placeholderData = [
-        { receivedAt: '2023-03-26', amount: 0 }
-    ];
 
     const chartData = data?.map(log => ({
         receivedAt: formatDate(log.receivedAt),
         amount: log.amount,
-    })) || placeholderData;
-
-    console.log(chartData);
+    })) //get required data from the data passed in the props
 
     return (
         <section className='w-full border'>

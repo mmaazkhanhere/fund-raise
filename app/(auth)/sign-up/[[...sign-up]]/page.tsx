@@ -1,3 +1,5 @@
+/*The sign up page for the application using the clerk auth */
+
 import { SignUp } from "@clerk/nextjs";
 
 export default function Page() {

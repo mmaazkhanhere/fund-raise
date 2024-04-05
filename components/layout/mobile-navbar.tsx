@@ -46,7 +46,7 @@ const MobileNavbar = (props: Props) => {
 
                         {/*Climate Change Initiatives */}
                         <Link
-                            href='/'
+                            href='/climate-change'
                             className='flex items-center hover:scale-95 transition
                             duration-500 gap-x-6'
                         >
@@ -64,7 +64,7 @@ const MobileNavbar = (props: Props) => {
 
                         {/*Conservation Projects */}
                         <Link
-                            href='/'
+                            href='/conservation'
                             className='flex items-center hover:scale-95 transition
                             duration-500 gap-x-6'
                         >
@@ -82,7 +82,7 @@ const MobileNavbar = (props: Props) => {
 
                         {/*Water Conservation */}
                         <Link
-                            href='/'
+                            href='/water-conservation'
                             className='flex items-center hover:scale-95 transition
                             duration-500 gap-x-6'
                         >
@@ -100,7 +100,7 @@ const MobileNavbar = (props: Props) => {
 
                         {/*Eco-Tech */}
                         <Link
-                            href='/'
+                            href='/echo-tech'
                             className='flex items-center hover:scale-95 transition
                             duration-500 gap-x-6'
                         >
@@ -118,7 +118,7 @@ const MobileNavbar = (props: Props) => {
 
                         {/*Eco-Education */}
                         <Link
-                            href='/'
+                            href='/eco-education'
                             className='flex items-center hover:scale-95 transition
                             duration-500 gap-x-6'
                         >
