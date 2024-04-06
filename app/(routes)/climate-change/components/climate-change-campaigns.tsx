@@ -1,25 +1,39 @@
+/*A react component that fetches campaigns related to climate change niche, 
+displays a loading skeleton while waiting for data, and renders campaign cards once
+the data is available. Each campaign card displays information about a specific
+campaign */
+
 "use client"
+
+import React, { useEffect } from 'react'
 
 import CampaignCard from '@/components/campaign-card';
 import LoadingSkeleton from '@/components/loading-skeleton';
+
 import { useAppDispatch, useAppSelector } from '@/lib/(redux-store)/(redux-setup)/hooks'
 import { getNicheSpecificCampaign } from '@/lib/(redux-store)/(slices)/campaignListSlice';
-import React, { useEffect } from 'react'
 
 type Props = {}
 
 const ClimateChangeCampaigns = (props: Props) => {
 
-    const dispatch = useAppDispatch();
+    const dispatch = useAppDispatch(); /*Redux hook to dispatch action to Redux
+    store that changes state of the Redux store */
+
     const campaignList = useAppSelector((state) => state.campaignList.campaignList);
+    /*Extract list of campaigns from Redux store */
+
     const loadingState = useAppSelector((state) => state.campaignList.isLoading);
 
     useEffect(() => {
+        /*dispatch the action to get campaigns specific to climate change niche */
         dispatch(getNicheSpecificCampaign('Climate Change'));
     }, [dispatch]);
 
 
     if (loadingState || campaignList?.length == 0) {
+        /*Display a loading skeleton while in loading state or data being fetched
+        but not completed */
         return (
             <section
                 className='max-w-7xl mx-auto w-full flex flex-col items-start px-4'
@@ -31,8 +45,6 @@ const ClimateChangeCampaigns = (props: Props) => {
             </section>
         )
     }
-
-    console.log(campaignList)
 
     return (
         <section
