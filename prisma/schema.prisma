@@ -14,40 +14,42 @@ datasource db {
 }
 
 model User{
-  id  String  @id @unique
-  firstName String
-  lastName String
-  username String @unique
-  email String @unique
-  profileImage String
-  campaigns Campaign[]
+  id  String  @id @unique //id of the user that is unique
+  firstName String //first name of the user
+  lastName String //last name of the user
+  username String @unique //username of the user that is unique
+  email String @unique //email of the user that is unique
+  profileImage String //profile image of the user
+  campaigns Campaign[] //campaigns created by the user
 }
 
 model Campaign{
-  id   String    @id @default(uuid()) @unique
-  title String
-  tagline String
-  imageUrl String
-  category String
-  niche String
-  description String
-  durationInDays Int
-  fundGoal Float
-  fundsReceiver String
-  fundsReceiverStripeId String
-  fundsWithdrawn Boolean @default(false)
-  fundReceived      Float           @default(0)
-  creatorId String
-  createdAt DateTime @default(now())
+  id   String    @id @default(uuid()) @unique //id of the campaign that is unique
+  title String //title of the campaign
+  tagline String //tagline of the campaign
+  imageUrl String //url of the campaign image
+  category String //category of the campaign
+  niche String //niche of the campaign
+  description String //description of the campaign
+  durationInDays Int //days the campaign will be run
+  fundGoal Float //funds the camapgin aims to collect
+  fundsReceiver String //who will recieve the funds
+  fundsReceiverStripeId String //Stripe id of the funds reciever
+  fundsWithdrawn Boolean @default(false) //boolean indicating if the funds has been withdrawn
+  fundReceived  Float @default(0)  // funds recieved by the campaign
+  creatorId String //id of the campaign creator
+  createdAt DateTime @default(now()) //when the campaign was created
 
-  fundsReceivedLog FundReceivedLog[]
+  fundsReceivedLog FundReceivedLog[] //log of funds received by the campaign
   creator User @relation(fields:[creatorId], references: [id], onDelete: Cascade)
+  //creator of the campaign
 }
 
 model FundReceivedLog {
-  id           String   @id @default(uuid()) @unique
-  amount       Float @default(0)
-  receivedAt   DateTime @default(now())
-  campaignId   String
+  id           String   @id @default(uuid()) @unique //id of the funds received by the campaign 
+  amount       Float @default(0) //amount donated
+  receivedAt   DateTime @default(now()) //when the funds were recieved
+  campaignId   String //id of the campaign which is receiving the funds
   campaign     Campaign @relation(fields: [campaignId], references: [id])
+  //campaign recieveing funds
 }

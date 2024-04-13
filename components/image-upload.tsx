@@ -1,3 +1,6 @@
+/*A react component that allows users to upload images, especially for the
+campaign they want to run. It uses React Dropzone library to achieve that */
+
 "use client"
 
 import React, { useCallback, useState } from 'react'
@@ -5,20 +8,26 @@ import Image from 'next/image'
 import { useDropzone } from 'react-dropzone'
 
 type Props = {
-    value?: string;
-    onChange: (base64: string) => void;
-    disabled?: boolean;
-    label?: string;
+    value?: string; //base64 representation of the uploaded image
+    onChange: (base64: string) => void; //function called when image is uploaded
+    disabled?: boolean; //boolean indicating whether the component is disabled
+    label?: string; //text displayed at the dropzone
 }
 
 const ImageUpload = ({ value, onChange, disabled, label }: Props) => {
 
     const [base64, setBase64] = useState(value);
 
+    /*A callback function that calls the onChange function with base64 representation
+    of the uploaded image */
     const handleChange = useCallback((base64: string) => {
         onChange(base64);
     }, [onChange]);
 
+
+    /*callback function invoked when an image is dropped into the dropzone. It
+    reads the dropped file, converts it to base64, updates the state and calls
+    the above handleChange function */
     const handleDrop = useCallback((files: any) => {
         const file = files[0];
         const reader = new FileReader();

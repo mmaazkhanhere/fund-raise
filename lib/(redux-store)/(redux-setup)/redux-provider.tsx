@@ -1,3 +1,7 @@
+/*React component ensures that any components wrapped within it have access to 
+the Redux store, allowing them to access and update the global state managed by 
+Redux. */
+
 "use client";
 import { store } from "./store";
 import React, { ReactNode } from "react";

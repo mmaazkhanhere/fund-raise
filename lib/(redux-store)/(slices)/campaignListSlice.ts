@@ -1,14 +1,22 @@
+/*Redux slice that facilitates fetching campaign data asynchronously from the server,
+creating new campaigns, and manages the loading state and errors associated with
+these operations. It provides selector to access loading state and errors from the
+redux store */
+
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../(redux-setup)/store";
 import axios from "axios";
 import { ICampaign, ICampaignListState } from "@/interfaces-d";
 
+/*Initial state of the campaign */
 const initialState: ICampaignListState = {
     campaignList: [],
     isLoading: false,
     error: null,
 }
 
+/*An async thunk that is responsible for fetching list of campaign by making a
+GET request to the specified endpoint */
 export const getCampaignList = createAsyncThunk("campaignListSlice/getCampaignList", async () => {
     try {
         const response = await axios.get('/api/campaign');
@@ -18,6 +26,9 @@ export const getCampaignList = createAsyncThunk("campaignListSlice/getCampaignLi
     }
 })
 
+/*An async thunk that is responsible for fetching campaigns of specific niche
+by making a GET HTTP request along with niche name passed in the request
+url */
 export const getNicheSpecificCampaign = createAsyncThunk('campaignSlice/getNicheSpecificCampaign', async (nicheName?: string) => {
     try {
         const request = await axios.get(`/api/campaign/niche/${nicheName}`);
@@ -27,6 +38,8 @@ export const getNicheSpecificCampaign = createAsyncThunk('campaignSlice/getNiche
     }
 })
 
+/*An async thunk that makes a POST HTTP request to the specified point along with
+the payload to create a new campaign */
 export const createCampaign = createAsyncThunk("campaignListSlice/createCampaign", async (data: ICampaign) => {
     try {
         const response = await axios.post("/api/campaign", data);
@@ -38,9 +51,11 @@ export const createCampaign = createAsyncThunk("campaignListSlice/createCampaign
 })
 
 const campaignListSlice = createSlice({
-    name: 'campaignList',
-    initialState,
+    name: 'campaignList', //name of the slice
+    initialState, //initial state of the slice
     reducers: {},
+
+    //handles actions dispatched outside of the slice. 
     extraReducers: (builder) => {
 
         /*Cases for getCampaignList asyncThunk */
@@ -63,6 +78,7 @@ const campaignListSlice = createSlice({
 
 
         /*Cases for getNicheSpecificCampaign asyncThunk */
+
         builder.addCase(getNicheSpecificCampaign.pending, (state) => {
             state.isLoading = true;
             state.error = null;

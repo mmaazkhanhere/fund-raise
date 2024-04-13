@@ -1,3 +1,6 @@
+/*A react component that represents a loading skeleton displayed indicating
+a process under progress or data being fetched */
+
 import React from 'react'
 
 import { Skeleton } from "@/components/ui/skeleton"

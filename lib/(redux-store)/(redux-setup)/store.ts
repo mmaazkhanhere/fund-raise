@@ -1,3 +1,6 @@
+/*This code sets up the Redux store with the reducers from the specified slices, 
+allowing state management across the application */
+
 import { configureStore } from '@reduxjs/toolkit'
 import userSlice from '../(slices)/userSlice'
 import campaignListSlice from '../(slices)/campaignListSlice'

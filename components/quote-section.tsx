@@ -1,4 +1,5 @@
-
+/*React component that is responsible for displaying quote that is received
+as a prop*/
 
 import React from 'react'
 import { Bebas_Neue } from 'next/font/google'

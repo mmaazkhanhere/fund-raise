@@ -1,3 +1,6 @@
+/*A reusable react component for displaying different sections of the application,
+displaying the main content with a background image and a quote section */
+
 import React from 'react'
 import QuoteSection from './quote-section';
 
@@ -28,20 +31,26 @@ const RoutesHomepage = ({ mainHeading, imageURL, subHeading, backgroundImagePosi
                     items-start px-4'
                 >
                     <div className='flex flex-col max-w-3xl gap-y-2'>
+
+                        {/*Main Heading */}
                         <h1
                             className='text-5xl md:text-6xl lg:text-8xl font-black uppercase leading-tight'
                         >
                             {mainHeading}
                         </h1>
-                        <p
+
+                        {/*Subheading */}
+                        <h3
                             className='text-xl lg:text-2xl uppercase font-mono '
                         >
                             {subHeading}
-                        </p>
+                        </h3>
                     </div>
 
                 </div>
             </section>
+
+            {/*Quote */}
             <section className='max-w-7xl mx-auto'>
                 <QuoteSection
                     quote={quote}
