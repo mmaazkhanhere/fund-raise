@@ -1,6 +1,10 @@
+/*A react component that displays different campaign categories, allowing 
+user to explore and navigate to specific category page with ease */
+
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
+
 import { BsThermometerSun } from 'react-icons/bs'
 import { FaHandHoldingWater } from 'react-icons/fa'
 import { FaBookOpen, FaMicroscope, FaRecycle } from 'react-icons/fa6'

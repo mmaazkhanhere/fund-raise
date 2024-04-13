@@ -1,6 +1,9 @@
+/*A react component that is navigation menu for website, providing different
+links to different section for quick navigation */
+
 "use client"
 
-import * as React from "react"
+import React from "react"
 import Link from "next/link"
 
 import { cn } from "@/lib/utils"
@@ -19,8 +22,12 @@ export default function NavbarMenu() {
   return (
     <NavigationMenu>
       <NavigationMenuList>
+
+        {/*Climate Change Menu */}
         <NavigationMenuItem>
-          <NavigationMenuTrigger>Campaigns</NavigationMenuTrigger>
+          <NavigationMenuTrigger>
+            Campaigns
+          </NavigationMenuTrigger>
           <NavigationMenuContent>
             <ul className="grid gap-3 p-4 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
               <li className="row-span-4">
@@ -78,6 +85,7 @@ export default function NavbarMenu() {
           </NavigationMenuContent>
         </NavigationMenuItem>
 
+        {/*How it works */}
         <NavigationMenuItem>
           <NavigationMenuTrigger className='bg-[#f8f8f2]'>
             How It Works
@@ -101,6 +109,7 @@ export default function NavbarMenu() {
           </NavigationMenuContent>
         </NavigationMenuItem>
 
+        {/*Success Stories */}
         <NavigationMenuItem>
           <Link href="/" legacyBehavior passHref>
             <NavigationMenuLink className={navigationMenuTriggerStyle()}>
@@ -109,6 +118,7 @@ export default function NavbarMenu() {
           </Link>
         </NavigationMenuItem>
 
+        {/*About Us */}
         <NavigationMenuItem>
           <Link href="/" legacyBehavior passHref>
             <NavigationMenuLink className={navigationMenuTriggerStyle()}>
@@ -120,6 +130,10 @@ export default function NavbarMenu() {
     </NavigationMenu >
   )
 }
+
+
+/*A component that is used to render each individual link within the sections. It
+renders an anchor element inside a list item, with customizable props and styling*/
 
 const ListItem = React.forwardRef<
   React.ElementRef<"a">,

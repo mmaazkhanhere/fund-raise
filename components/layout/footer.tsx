@@ -1,3 +1,7 @@
+/*React component responsible for rendering the footer section of a webpage. It 
+contains information about the fundraise application, dummy links to different sections,
+and social media icons */
+
 import React from 'react'
 
 import { FaFacebookSquare, FaLinkedin, FaTwitterSquare, FaYoutube } from "react-icons/fa";
@@ -12,13 +16,16 @@ const Footer = (props: Props) => {
             <div className="max-w-7xl mx-auto px-4">
                 <div
                     className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 
-                gap-10 md:gap-16 lg:gap-4"
+                    gap-10 md:gap-16 lg:gap-4"
                 >
                     {/* Grid 1 */}
                     <div className='order-2 lg:order-1'>
+                        {/*Heading */}
                         <h2 className="text-xl font-bold mb-4">
                             About Us
                         </h2>
+
+                        {/*Links */}
                         <ul
                             className="text-gray-300 text-sm"
                         >
@@ -54,9 +61,12 @@ const Footer = (props: Props) => {
 
                     {/* Grid 2 */}
                     <div className='order-3 lg:order-2'>
+                        {/*Heading */}
                         <h2 className="text-xl font-bold mb-4">
                             Campaigns
                         </h2>
+
+                        {/*Links */}
                         <ul
                             className="text-gray-300 text-sm"
                         >
@@ -92,9 +102,13 @@ const Footer = (props: Props) => {
 
                     {/* Grid 3 */}
                     <div className='order-4 lg:order-3'>
+
+                        {/*Heading */}
                         <h2 className="text-xl font-bold mb-4">
                             Resources
                         </h2>
+
+                        {/*Links */}
                         <ul
                             className="text-gray-300 text-sm"
                         >
@@ -130,17 +144,22 @@ const Footer = (props: Props) => {
 
                     {/* Grid 4 */}
                     <div className='order-1 lg:order-4'>
+
+                        {/*Heading */}
                         <h1
                             className="text-3xl font-bold text-[#f8f8f2] mb-4
                             uppercase"
                         >
                             FundRaise
                         </h1>
+
+                        {/*Description*/}
                         <p className="text-gray-300 text-sm">
                             Empowering eco-friendly projects by connecting passionate
                             individuals with impactful causes. Join us today!
                         </p>
 
+                        {/*Social Media Links */}
                         <div className='flex items-center gap-x-1 mt-2'>
                             <FaFacebookSquare
                                 className='w-6 h-6 cursor-pointer hover:opacity-80'

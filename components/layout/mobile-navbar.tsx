@@ -1,3 +1,6 @@
+/*React component responsible for rendering a mobile navigation menu. It utilizes
+the sheet component from Shadcn tp create a sliding menu effect */
+
 import React from 'react'
 
 import { RiCommunityFill, RiMenu4Line, RiShareForwardFill } from "react-icons/ri";
@@ -28,6 +31,7 @@ const MobileNavbar = (props: Props) => {
             </SheetTrigger>
 
             <SheetContent className='w-screen overflow-scroll'>
+                {/*Sheet Title */}
                 <SheetHeader>
                     <SheetTitle>Menu</SheetTitle>
                 </SheetHeader>
@@ -38,6 +42,7 @@ const MobileNavbar = (props: Props) => {
                         className='flex flex-col justify-center w-full
                         mt-8 gap-y-4'
                     >
+                        {/*Menu Heading */}
                         <h2
                             className='py-2 font-bold uppercase self-start'
                         >
@@ -138,11 +143,12 @@ const MobileNavbar = (props: Props) => {
                     </div>
 
 
-                    {/*Initiatives */}
+                    {/*Initiatives Menu */}
                     <div
                         className='flex flex-col justify-center w-full
                         mt-8 gap-y-4'
                     >
+                        {/*Heading */}
                         <h2
                             className='py-2 font-bold uppercase self-start'
                         >
@@ -219,12 +225,14 @@ const MobileNavbar = (props: Props) => {
                         </Link>
                     </div>
 
-                    {/*How it works */}
+
+                    {/*How it works Menu*/}
                     <div
                         className='flex flex-col justify-center w-full
                         mt-8 gap-y-4'
                     >
 
+                        {/*Heading */}
                         <h2
                             className='py-2 font-bold uppercase self-start'
                         >

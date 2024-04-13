@@ -1,9 +1,14 @@
+/*This component serves as a form for creating crowdfunding campaigns. It includes
+validation for each field, handles form submission, display error messages,
+and display notification to the user regarding the form submission */
+
 "use client"
 
 import React from 'react'
 import { useForm } from 'react-hook-form'
 import * as z from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
+import { useRouter } from 'next/navigation'
 
 import {
     Form,
@@ -14,7 +19,6 @@ import {
     FormLabel,
     FormMessage,
 } from "@/components/ui/form"
-
 import {
     Select,
     SelectContent,
@@ -22,26 +26,33 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select"
-
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { useToast } from "@/components/ui/use-toast"
-
 import { Input } from "@/components/ui/input"
+
 import { Textarea } from '../ui/textarea'
 import ImageUpload from '../image-upload'
 import { Button } from '../ui/button'
+
 import { useAppDispatch } from '@/lib/(redux-store)/(redux-setup)/hooks'
 import { createCampaign } from '@/lib/(redux-store)/(slices)/campaignListSlice'
-import { useRouter } from 'next/navigation'
+
 
 type Props = {}
 
 const CampaignCreationHomepage = (props: Props) => {
 
-    const dispatch = useAppDispatch();
-    const router = useRouter();
-    const { toast } = useToast();
+    const dispatch = useAppDispatch(); /*dispatch action to the Redux store
+    to update states */
 
+    const router = useRouter(); /*Access the router object to navigate in the
+    application */
+
+    const { toast } = useToast(); /*Get the toast function to display
+    notifications */
+
+    /*Declare schema for the form fields including an error message if the
+    schema of specific field is not met */
     const formSchema = z.object({
         title: z.string().max(33, {
             message: 'Campaign title must be have at most 33 characters'
@@ -58,12 +69,12 @@ const CampaignCreationHomepage = (props: Props) => {
         category: z.string().min(1, 'Campaign category must be specified'),
         niche: z.string().min(1, 'Campaign niche must be specified'),
         durationInDays: z.coerce.number().min(7, 'Duration must be a positive number and greater than 7'),
-
         fundsReceiver: z.string().min(1, 'Please select an option'),
         fundGoal: z.coerce.number().min(7, 'Funding target must be positive'),
         stripeAccountId: z.string().min(1, 'Enter stripe account id'),
     })
 
+    /*Initialize the form using the schema declared above */
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema), defaultValues: {
             title: '',
@@ -79,7 +90,14 @@ const CampaignCreationHomepage = (props: Props) => {
         }
     })
 
-    const isLoading = form.formState.isSubmitting;
+    const isLoading = form.formState.isSubmitting; /*Loading state of the form
+    is assigned to isLoading variable */
+
+
+    /*function that is called when the form is submitted. It dispatch the action
+    to the redux store where it make a POST HTTP request to the database. A success
+    notification is displayed if request is successful and the user is navigated
+    to the homepage using router object*/
 
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
         try {
@@ -97,7 +115,9 @@ const CampaignCreationHomepage = (props: Props) => {
     }
 
 
-
+    /*This function is implemented to manages changes in the uploaded image. It 
+    updates the form field for the image URL with the base64 representation of
+    the uploaded image */
     const handleImageChange = (base64: string) => {
         form.setValue('imageUrl', base64);
     }
@@ -107,14 +127,17 @@ const CampaignCreationHomepage = (props: Props) => {
             className='grid flex-col w-full gap-5 max-w-7xl mx-auto px-4 mt-20'
         >
 
+            {/*Heading */}
             <h1 className='text-3xl lg:text-4xl font-bold uppercase'>
                 Start Your Crowdfunding Journey Here
             </h1>
 
+            {/*Description of the Form */}
             <p className='text-sm font-extralight mb-10 max-w-5xl w-full'>
                 Make a good first impression: introduce your campaign objectives and entice people to learn more. This basic information will represent your campaign on your campaign page, on your campaign card, and in searches.
             </p>
 
+            {/*Form */}
             <Form {...form}>
                 <form
                     className='space-y-6 pb-10'
@@ -445,7 +468,7 @@ const CampaignCreationHomepage = (props: Props) => {
                         )}
                     />
 
-
+                    {/*Button */}
                     <Button
                         disabled={isLoading}
                         variant='accent'

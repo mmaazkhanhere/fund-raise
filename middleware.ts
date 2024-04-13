@@ -10,7 +10,7 @@ export default authMiddleware({
     // authentication information:
     // ignoredRoutes: ['/no-auth-in-this-route'],
 
-    publicRoutes: ['/', "/api/webhooks(.*)"]
+    publicRoutes: ['/', "/api/webhooks(.*)", '/api/campaign']
 });
 
 export const config = {

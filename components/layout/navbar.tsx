@@ -1,16 +1,20 @@
+/*React component tha represents a navigation bar for for large screens, including
+links, buttons for signing in and starting a campaign */
+
 import Link from 'next/link'
 import React from 'react'
-import NavbarMenu from './navbar-menu'
-import { Button } from '../ui/button'
 import { SignInButton, UserButton } from '@clerk/nextjs'
 import { currentUser } from '@clerk/nextjs/server'
+
+import NavbarMenu from './navbar-menu'
+import { Button } from '../ui/button'
 import MobileNavbar from './mobile-navbar'
 
 type Props = {}
 
 const Navbar = async (props: Props) => {
 
-    const signedInUser = await currentUser()
+    const signedInUser = await currentUser() //get the current signed in user
 
     return (
         <header
@@ -43,7 +47,8 @@ const Navbar = async (props: Props) => {
 
                 </div>
 
-
+                {/*Display a sign in button if no login user otherwise display
+                a user detail button if a sign in user is present */}
                 {
                     signedInUser ? (
                         <UserButton

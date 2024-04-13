@@ -1,6 +1,8 @@
-
+/*React component that displays a carousel of impact stories of the application
+and the campaigns made through the application */
 
 import React from 'react'
+import Image from 'next/image'
 
 import {
     Carousel,
@@ -11,7 +13,7 @@ import {
 } from "@/components/ui/carousel"
 
 import { Card, CardContent } from "@/components/ui/card"
-import Image from 'next/image'
+
 
 type Props = {}
 
@@ -20,13 +22,14 @@ const ImpactStories = (props: Props) => {
         <section
             className='max-w-7xl mx-auto flex flex-col items-center px-4 my-28'
         >
-
+            {/*Heading */}
             <h2
                 className='text-3xl font-semibold uppercase mb-20'
             >
                 See the impact
             </h2>
 
+            {/*Carousel */}
             <Carousel
                 opts={{
                     align: 'center',
