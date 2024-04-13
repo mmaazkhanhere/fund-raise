@@ -1,3 +1,5 @@
+/*An api endpoint responsible for creating a payout using the Stripe API */
+
 import { auth } from "@clerk/nextjs";
 import { NextResponse } from "next/server";
 import Stripe from "stripe";
@@ -10,32 +12,25 @@ const stripe = new Stripe(key, {
 
 export const POST = async (request: Request) => {
 
-    console.log('called')
-
     try {
 
-        console.log('try block')
-
-        const { userId } = auth();
-        console.log(userId)
+        const { userId } = auth(); //get the current user
 
         if (!userId) {
+            //If no userId is provided, return an unauthorized response
             return new NextResponse('Not Authenticated', { status: 401 })
         }
 
-        const body = await request.json();
-        const { fundReceived, stripeAccountId } = body;
+        const body = await request.json(); //get the body from the request
+        const { fundReceived, stripeAccountId } = body; //extract data from the body
 
-        console.log(fundReceived)
-        console.log(stripeAccountId)
 
         const payout = await stripe.payouts.create({
             amount: fundReceived * 100,
             currency: 'USD',
             destination: stripeAccountId as string
-        });
-
-        console.log(payout)
+        }); /*use the stripe client to create a payout with the specified amount 
+        and destination*/
 
 
         if (payout) {

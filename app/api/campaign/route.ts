@@ -1,3 +1,6 @@
+/*An api endpoint handling two apis routes; one to fetch all the campaigns and 
+another to create a campaign using prisma query */
+
 import { NextRequest, NextResponse } from "next/server";
 import prismadb from '@/lib/prismadb'
 import { auth } from "@clerk/nextjs";
@@ -5,6 +8,9 @@ import { auth } from "@clerk/nextjs";
 export const GET = async () => {
 
     try {
+
+        /*get top 6 campaigns ordered by the fund received and return in json
+        format */
         const campaignList = await prismadb.campaign.findMany({
             include: {
                 creator: true,
@@ -26,14 +32,19 @@ export const GET = async () => {
 
 
 export const POST = async (request: NextRequest) => {
-    const body = await request.json();
+
+    const body = await request.json(); //get the body from the request
 
     try {
-        const { userId } = auth();
+        const { userId } = auth(); //get the current user id that is currently logged in
 
         if (!userId) {
+            //if no logged in user, return an unauthenticated response 
             return new NextResponse('Not Authorized', { status: 401 });
         }
+
+        /*create a new campaign and log of funds received by that campaign and return
+        in json response */
 
         const campaign = await prismadb.campaign.create({
             data: {

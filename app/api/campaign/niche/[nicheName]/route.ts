@@ -1,13 +1,18 @@
+/*An api endpoint that makes a GET HTTP request to get all the campaigns of a
+specific niche and return in json format */
+
 import { NextRequest, NextResponse } from "next/server";
 import prismadb from '@/lib/prismadb'
 
 export const GET = async (request: NextRequest) => {
 
     const nicheName = decodeURIComponent(request.nextUrl.pathname.split('/').pop() as string);
+    /*get the niche name from the request url and decoding it */
 
     try {
 
         if (!nicheName) {
+            //if no nicheName is specified, return missing information error message
             return new NextResponse('Missing required niche name', { status: 400 })
         }
 

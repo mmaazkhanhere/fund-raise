@@ -1,3 +1,6 @@
+/*An api route that facilitates the creation of Stripe Checkout sessions, allowing
+users to make payments securely */
+
 import { auth, currentUser } from "@clerk/nextjs"
 import { NextRequest, NextResponse } from "next/server"
 import Stripe from "stripe";
@@ -14,28 +17,28 @@ export const POST = async (request: NextRequest) => {
         const signInUser = await currentUser();
 
         if (!userId || !signInUser) {
+            //if no logged in user, return unauthorized response and error message
             return new NextResponse("Unauthorized", { status: 401 });
         }
 
 
-        const body = await request.json();
+        const body = await request.json(); //get the body from request
 
-        const { fullName, emailAddress, donation } = body.values;
-        const { campaignId } = body;
-        console.log(campaignId, fullName, emailAddress, donation);
+        const { donation } = body.values;
+        const { campaignId } = body; //extract data from the body
 
         const session = await stripe.checkout.sessions.create({
-            mode: 'payment',
-            payment_method_types: ['card'],
+            mode: 'payment', //checkout type is payment
+            payment_method_types: ['card'], //payment will be made using card
             line_items: [
                 {
                     price_data: {
-                        currency: 'USD',
+                        currency: 'USD', //currency used
                         product_data: {
-                            name: 'FundRaise',
+                            name: 'FundRaise', //detail of what user is paying for
                             description: 'Contribute to saving the Earth with every penny you pay!'
                         },
-                        unit_amount: donation * 100
+                        unit_amount: donation * 100 //amount of payment
                     },
                     quantity: 1,
                 },
@@ -43,7 +46,7 @@ export const POST = async (request: NextRequest) => {
             metadata: {
                 donation, campaignId
             },
-            success_url: `${request.headers.get("origin")}/`,
+            success_url: `${request.headers.get("origin")}/`, //redirect to homepage if checkout successful
             cancel_url: `${request.headers.get("origin")}/?canceled=true`
         })
 
