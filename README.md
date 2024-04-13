@@ -1,36 +1,49 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# [FundRaise](https://fund-raise.vercel.app/) - Your Dollar Can Save the Earth 
 
-## Getting Started
+## Table of contents
 
-First, run the development server:
+- [Overview](#overview)
+- [Features](#features)  
+- [Stack](#stack)
+- [Screenshot](#screenshot)
+- [Links](#links)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Overview
+FundRaise is a revolutionary platform dedicated to environmental advocacy, offering a comprehensive suite of tools to empower users in supporting eco-friendly initiatives. Seamlessly secured with ClerkAuth, FundRaise ensures trust and reliability through personalized user authentication. Its responsive design adapts effortlessly to all devices, providing a visually stunning experience. With simple campaign creation tools, users can advocate for environmental causes with ease. FundRaise streamlines fundraising, making contributions convenient for donors. Campaign organizers benefit from seamless withdrawals, ensuring transparency and efficiency in fund distribution. FundRaise fosters a community committed to environmental conservation, making a tangible impact with every click.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Features
+- **User Authentication:** Seamlessly secured with ClerkAuth, FundRaise ensures a safe and personalized experience for every user, fostering trust and reliability. 
+- **Responsive Design:** Say goodbye to viewing constraints! Our sleek, responsive web design adapts effortlessly to all screen sizes, ensuring a visually stunning experience whether you're on a phone, tablet, or desktop. 
+- **Campaign Creation:** Empower yourself to make a difference! With FundRaise, creating impactful campaigns advocating for environmental causes is as simple as a few clicks.
+- **Fundraising Made Easy:** Supporting your favorite campaigns has never been easier! FundRaise streamlines the fundraising process, making it convenient for donors to contribute to causes close to their hearts.
+- **Seamless Withdrawals:** Transparency and efficiency are at the core of FundRaise. Campaign organizers can effortlessly withdraw funds, ensuring that every donation goes where it's needed most. 
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Stack
+-  Nextjs 14 App Router (React Framework)
+- TypeScript
+- Tailwind CSS (Styling Framework)
+- Shadcn/UI (UI Components)
+- PostgreSQL (Database)
+- Prisma (Database ORM)
+- Redux (State Management)
+- React Icons (Icons)
+- Axios (Async HTTP Requests)
+- React Dropzone (Image Uploading)
+- Stripe (Payment)
+- Vercel (Deployment)
+  
+### Screenshot
+![Hompeage](https://github.com/mmaazkhanhere/fund-raise/assets/115078151/29d04513-bbce-4429-bfd8-43cc59cab26a)
+![Campaign-List](https://github.com/mmaazkhanhere/fund-raise/assets/115078151/d7191b7c-2862-4492-9c7c-f598a33dfbde)
+![Campaign-Details](https://github.com/mmaazkhanhere/fund-raise/assets/115078151/5964091e-5ee2-407c-baa2-6c77ace63643)
+![Checkout](https://github.com/mmaazkhanhere/fund-raise/assets/115078151/fda91a28-834e-4f62-af00-3f2010f13310)
+![Stripe-Checkout](https://github.com/mmaazkhanhere/fund-raise/assets/115078151/9e951e82-819c-4f4b-879d-172ed8bbc4e2)
+![Creating-Campaign](https://github.com/mmaazkhanhere/fund-raise/assets/115078151/dbeddc1e-835e-496c-8182-3f83a69436fc)
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+### Links
 
-## Learn More
+- Live Site URL: [FundRaise](https://fund-raise.vercel.app/)
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+### Installation
+To install necessary dependencies, run
+```npm install ```
